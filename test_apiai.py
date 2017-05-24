@@ -3,7 +3,6 @@
 
 import os.path
 import sys
-#import json
 
 try:
     import apiai
@@ -30,7 +29,6 @@ def main():
     response = request.getresponse()
 
     print(response.read())
-    #print(json.dumps(response.read(), indent=2))
 
 
 if __name__ == '__main__':
