@@ -1,3 +1,4 @@
+# pylint: disable=locally-disabled,missing-docstring,invalid-name
 # -*- coding: utf-8 -*-
 
 
@@ -56,7 +57,8 @@ class Eukaryota:
             # vedere come gestire la cosa.
             # emetto qualcosa che lo segnala al mondo esterno?
             # direi di sì ma c'è da vedere come fare
-            self._dup(self)
+            # ###self._dup(self)
+            self.DUP = 1
 
     @staticmethod
     def _burnfood(self, x=1):
@@ -65,6 +67,9 @@ class Eukaryota:
         else:
             self.food -= x
 
-    @staticmethod
-    def _dup(self):
-        self.DUP = 1
+    @classmethod
+    def _bf(cls, x=1):
+        if cls.food - x <= 0:
+            cls.food = 0
+        else:
+            cls.food -= x

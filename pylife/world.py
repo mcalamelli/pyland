@@ -1,9 +1,10 @@
-# -*- coding: utf-8 -*-
+# pylint: disable=locally-disabled,missing-docstring,invalid-name
 
+# coding: utf-8
 
-import pylife
 from random import randint
 from PIL import Image
+import pylife
 
 MAXCREATURES = 500  # 10000
 XSIZE = 300
@@ -18,12 +19,12 @@ def dump():
     img = Image.new('RGB', (XSIZE, YSIZE), "black")
     pixels = img.load()
 
-    for i in range(img.size[0]):
-        for j in range(img.size[1]):
-            if getplace(i, j) == 1:
-                pixels[i, j] = (0, 0, 255)
-            elif getplace(i, j) == 9:
-                pixels[i, j] = (255, 255, 0)
+    for ii in range(img.size[0]):
+        for jj in range(img.size[1]):
+            if getplace(ii, jj) == 1:
+                pixels[ii, jj] = (0, 0, 255)
+            elif getplace(ii, jj) == 9:
+                pixels[ii, jj] = (255, 255, 0)
 
     img.show()
     # aggiungere salvataggio su file
@@ -57,15 +58,15 @@ def addcreature(x, y):
         return False
 
 
-for i in range(0, MAXFOOD):
-    x, y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
-    while not addfood(x, y):
-        x, y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
+for f_i in range(0, MAXFOOD):
+    f_x, f_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
+    while not addfood(f_x, f_y):
+        f_x, f_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
 
-for i in range(0, MAXCREATURES):
-    x, y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
-    while not addcreature(x, y):
-        x, y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
+for c_i in range(0, MAXCREATURES):
+    c_x, c_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
+    while not addcreature(c_x, c_y):
+        c_x, c_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
 
 
 print("Numero di creature: ", len(creatures))
