@@ -27,3 +27,6 @@ Dettagli giornalieri:
 
  * test_apiai.py
  Un semplice script di esempio che utilizza l'SDK di api.ai per Python
+
+* pylife
+Una prova di vita artificiale 
