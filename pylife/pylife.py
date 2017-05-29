@@ -7,7 +7,7 @@ class Eukaryota:
     # 10000 millisecondi
     MAXAGE = 10000
     # 100 cibo
-    MAXFOOD = 100
+    MAXENERGY = 100
     # ogni 100 tick il cibo cala di una unità (BMR == metabolismo basale)
     BMRTICK = 100
     # ogni 500 tick la creatura si duplica
@@ -19,29 +19,53 @@ class Eukaryota:
 
 
     def __init__(self, x, y):
-        self.age = 0  # l'età iniziale è 0
+        self._age = 0  # l'età iniziale è 0
 
         self.posX = x  # la X della posizione iniziale nel mondo
         self.posY = y  # la Y della posizione iniziale nel mondo
 
-        self.food = self.MAXFOOD  # partiamo con il pieno di energia
+        self._energy = self.MAXENERGY  # partiamo con il pieno di energia
 
 
-    def eat(self, foodqty):
+    @property
+    def energy(self):
+        """
+        Imposta oppure ottiene il valore corrente di energia
+        """
+        return self._energy
+
+    @energy.setter
+    def energy(self, x):
+        self._energy = x
+
+
+    @property
+    def age(self):
+        """
+        Imposta oppure ottiene il valore corrente di età
+        """
+        return self._age
+
+    @age.setter
+    def age(self, x):
+        self.age = x
+
+
+    def eat(self, x):
         # potrebbe essere interessante il lasciare crescere l'energia > MAXFOOD
-        if self.food + foodqty > 100:
-            self.food = self.MAXFOOD
+        if self._energy + x > self.MAXENERGY:
+            self._energy = self.MAXENERGY
         else:
-            self.food += foodqty
+            self._energy += x
 
 
     def tick(self):
-        self.age += 1  # incremento l'età della creatura
+        self._age += 1  # incremento l'età della creatura
         self._performinternaltasks()
 
 
     def isdead(self):
-        return (self.food == 0) | (self.age > self.MAXAGE)
+        return (self._energy == 0) | (self._age > self.MAXAGE)
 
 
     def dupok(self):
@@ -50,12 +74,12 @@ class Eukaryota:
 
     def _performinternaltasks(self):
         # controllo se l'età è multipla di 10 per consumare in ogni caso
-        if self.age % self.BMRTICK == 0:
-            self._burnfood(self)
+        if self._age % self.BMRTICK == 0:
+            self.burnfood(self)
 
         # controllo se la eta' e' multipla di cinquecento e il cibo disponibile
         # e' maggiore di trenta
-        if (self.age % self.DUPTIME == 0) & (self.food > self.MINFOODFORDUP):
+        if (self._age % self.DUPTIME == 0) & (self._energy > self.MINFOODFORDUP):
             # è tempo di duplicarsi!
             # vedere come gestire la cosa.
             # emetto qualcosa che lo segnala al mondo esterno?
@@ -63,16 +87,10 @@ class Eukaryota:
             # ###self._dup(self)
             self.DUP = 1
 
-
-    def _burnfood(self, x=1):
-        if self.food - x <= 0:
-            self.food = 0
+    @staticmethod
+    def burnfood(self, x=1):
+        if self.energy - x <= 0:
+            self.energy = 0
         else:
-            self.food -= x
+            self.energy -= x
 
-
-    def _bf(self, x=1):
-        if self.food - x <= 0:
-            self.food = 0
-        else:
-            self.food -= x

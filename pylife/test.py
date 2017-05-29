@@ -1,19 +1,19 @@
 # pylint: disable=locally-disabled,missing-docstring,invalid-name
 
-import pylife
+from pylife import Eukaryota
 
-obj = pylife.Eukaryota(10, 10)
+e = Eukaryota(10, 10)
 
-print("Is it dead? ", obj.isdead())
-print("Food?", obj.food)
+print("Is it dead? ", e.isdead())
+print("Food?", e.energy)
 print("Burn out now!")
-#obj._burnfood(obj)
-obj._bf(obj)
-print("Food?", obj.food)
+e.burnfood(1)
+print("Food?", e.energy)
 for i in range(0, 100):
-    obj.tick()
+    e.tick()
 print("100 tick in a row!")
-print("Food?", obj.food)
+print("Food?", e.energy)
 for i in range(1, 510):
-    obj.tick()
-    print("[", i, "] [", obj.food, "]", obj.DUP)
+    e.tick()
+    print("[", i, "] [", e.energy, "]", e.DUP)
+
