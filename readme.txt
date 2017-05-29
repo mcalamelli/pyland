@@ -28,5 +28,8 @@ Dettagli giornalieri:
  * test_apiai.py
  Un semplice script di esempio che utilizza l'SDK di api.ai per Python
 
-* pylife
+* pylife/*
 Una prova di vita artificiale 
+
+* myclass.py, testmyclass.py
+Codice di esempio per l'uso delle classi
