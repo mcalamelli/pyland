@@ -2,9 +2,16 @@
 # -*- coding: utf-8 -*-
 
 class myclass:
-    globvar = 100
-
 
     def __init__(self, x=0):
-        self.globvar = x
+        self._myattr = x
 
+
+    @property
+    def myattr(self):
+        return self._myattr
+
+
+    @myattr.setter
+    def myattr(self, x):
+        self._myattr = x
