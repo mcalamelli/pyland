@@ -20,14 +20,15 @@ class Eukaryota:
 
     def __init__(self, x, y):
         self._age = 0  # l'età iniziale è 0
-
         self._x = x  # la X della posizione iniziale nel mondo
         self._y = y  # la Y della posizione iniziale nel mondo
-
         self._energy = self.MAXENERGY  # partiamo con il pieno di energia
 
     @property
     def x(self):
+        """
+        Imposta oppure ottiene la posizione x
+        """
         return self._x
 
     @x.setter
@@ -36,6 +37,9 @@ class Eukaryota:
 
     @property
     def y(self):
+        """
+        Imposta oppure ottiene la posizione y
+        """
         return self._y
 
     @y.setter
