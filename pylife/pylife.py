@@ -36,7 +36,7 @@ class Eukaryota:
 
     def dotick(self):
         self.age += 1  # incremento l'età della creatura
-        self._performinternaltasks(self)
+        self._performinternaltasks()
 
     def isdead(self):
         return (self.food == 0) | (self.age > self.MAXAGE)
@@ -44,7 +44,6 @@ class Eukaryota:
     def dupok(self):
         self.DUP = 0
 
-    @staticmethod
     def _performinternaltasks(self):
         # controllo se l'età è multipla di 10 per consumare in ogni caso
         if self.age % self.BMRTICK == 0:
