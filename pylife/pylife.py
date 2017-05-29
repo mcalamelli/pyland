@@ -21,11 +21,26 @@ class Eukaryota:
     def __init__(self, x, y):
         self._age = 0  # l'età iniziale è 0
 
-        self.posX = x  # la X della posizione iniziale nel mondo
-        self.posY = y  # la Y della posizione iniziale nel mondo
+        self._x = x  # la X della posizione iniziale nel mondo
+        self._y = y  # la Y della posizione iniziale nel mondo
 
         self._energy = self.MAXENERGY  # partiamo con il pieno di energia
 
+    @property
+    def x(self):
+        return self._x
+
+    @x.setter
+    def x(self, x):
+        self._x = x
+
+    @property
+    def y(self):
+        return self._y
+
+    @y.setter
+    def y(self, y):
+        self._y = y
 
     @property
     def energy(self):
@@ -38,7 +53,6 @@ class Eukaryota:
     def energy(self, x):
         self._energy = x
 
-
     @property
     def age(self):
         """
@@ -48,7 +62,7 @@ class Eukaryota:
 
     @age.setter
     def age(self, x):
-        self.age = x
+        self._age = x
 
 
     def eat(self, x):
@@ -75,7 +89,7 @@ class Eukaryota:
     def _performinternaltasks(self):
         # controllo se l'età è multipla di 10 per consumare in ogni caso
         if self._age % self.BMRTICK == 0:
-            self.burnfood(self)
+            self.burnfood()
 
         # controllo se la eta' e' multipla di cinquecento e il cibo disponibile
         # e' maggiore di trenta
@@ -87,7 +101,7 @@ class Eukaryota:
             # ###self._dup(self)
             self.DUP = 1
 
-    @staticmethod
+    #@staticmethod
     def burnfood(self, x=1):
         if self.energy - x <= 0:
             self.energy = 0

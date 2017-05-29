@@ -7,7 +7,7 @@ e = Eukaryota(10, 10)
 print("Is it dead? ", e.isdead())
 print("Food?", e.energy)
 print("Burn out now!")
-e.burnfood(1)
+e.burnfood()
 print("Food?", e.energy)
 for i in range(0, 100):
     e.tick()
@@ -16,4 +16,3 @@ print("Food?", e.energy)
 for i in range(1, 510):
     e.tick()
     print("[", i, "] [", e.energy, "]", e.DUP)
-

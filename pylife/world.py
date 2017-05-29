@@ -4,7 +4,7 @@
 
 from random import randint
 from PIL import Image
-import pylife
+from pylife import Eukaryota
 
 MAXCREATURES = 500  # 10000
 XSIZE = 300
@@ -52,7 +52,7 @@ def addfood(x, y):
 def addcreature(x, y):
     if checkplace(x, y):
         places[x][y] = 1
-        creatures.append(pylife.Eukaryota(x, y))
+        creatures.append(Eukaryota(x, y))
         return True
     else:
         return False
