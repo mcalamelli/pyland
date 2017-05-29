@@ -1,3 +1,6 @@
+# pylint: disable=locally-disabled,missing-docstring,invalid-name
+# -*- coding: utf-8 -*-
+
 import myclass
 
 mc1 = myclass.myclass()
