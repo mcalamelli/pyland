@@ -34,7 +34,7 @@ class Eukaryota:
         else:
             self.food += foodqty
 
-    def dotick(self):
+    def tick(self):
         self.age += 1  # incremento l'età della creatura
         self._performinternaltasks()
 

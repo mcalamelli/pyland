@@ -11,9 +11,9 @@ print("Burn out now!")
 obj._bf(obj)
 print("Food?", obj.food)
 for i in range(0, 100):
-    obj.dotick()
+    obj.tick()
 print("100 tick in a row!")
 print("Food?", obj.food)
 for i in range(1, 510):
-    obj.dotick()
+    obj.tick()
     print("[", i, "] [", obj.food, "]", obj.DUP)
