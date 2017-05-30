@@ -3,7 +3,7 @@
 from pylife import Eukaryota
 
 #e = Eukaryota(10, 10)
-e = Eukaryota(10, 10, 100, 800)
+e = Eukaryota(10, 10, 100, 25)
 
 print("Is it dead? ", e.isdead())
 #print("Food?", e.energy)

@@ -97,7 +97,8 @@ class Eukaryota:
     def _performinternaltasks(self):
         # controllo se l'età è multipla di 10 per consumare in ogni caso
         if self._age % self.BMRTICK == 0:
-            d, m = divmod(self._age, self.BMRTICK)
+            d = self._age // self.BMRTICK
+            # 1 + (1 * d): l'energia viene scalata in quantità crescente
             self.burnfood(1 + (1 * d))
 
         # controllo se la eta' e' multipla di cinquecento e il cibo disponibile
