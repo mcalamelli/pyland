@@ -99,6 +99,7 @@ class Eukaryota:
         if self._age % self.BMRTICK == 0:
             d = self._age // self.BMRTICK
             # 1 + (1 * d): l'energia viene scalata in quantità crescente
+            # in funzione delle volte in cui l'organismo si è duplicato
             self.burnfood(1 + (1 * d))
 
         # controllo se la eta' e' multipla di cinquecento e il cibo disponibile
