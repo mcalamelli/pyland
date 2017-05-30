@@ -14,8 +14,6 @@ class Eukaryota:
     DUPTIME = 500
     # se il cibo è minore di 30 non c'è energia per la duplicazione
     MINENERGYFORDUP = 30
-    # variabile per segnalare la duplicazione
-    DUP = 0
 
 
     def __init__(self, x, y, energy=100, bmrtick=100, age=10000):
