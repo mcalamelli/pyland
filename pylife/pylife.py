@@ -23,10 +23,21 @@ class Eukaryota:
         self._x = x  # la X della posizione iniziale nel mondo
         self._y = y  # la Y della posizione iniziale nel mondo
         self._energy = energy  # partiamo con il pieno di energia
+        self._dup = 0 # variabile di controllo della duplicazione
         self.MAXENERGY = energy
         self.BMRTICK = bmrtick
         self.MAXAGE = age
 
+    @property
+    def dup(self):
+        """
+        Imposta oppure ottiene la variabile di duplicazione
+        """
+        return self._dup
+
+    @dup.setter
+    def dup(self, x):
+        self._dup = x
 
     @property
     def x(self):
@@ -75,41 +86,52 @@ class Eukaryota:
 
     def eat(self, x):
         # potrebbe essere interessante il lasciare crescere l'energia > MAXENERGY
-        if self._energy + x > self.MAXENERGY:
-            self._energy = self.MAXENERGY
+        if self.energy + x > self.MAXENERGY:
+            self.energy = self.MAXENERGY
         else:
-            self._energy += x
+            self.energy += x
 
 
     def tick(self):
-        self._age += 1  # incremento l'età della creatura
+        """
+        L'unità di tempo
+        """
+        self.age += 1  # incremento l'età della creatura
         self._performinternaltasks()
 
 
     def isdead(self):
-        return (self._energy == 0) | (self._age > self.MAXAGE)
+        """
+        Ritorna True se è finita l'energia oppure se si
+        è raggiunta l'età massima
+        """
+        return (self.energy == 0) | (self.age > self.MAXAGE)
 
 
     def dupok(self):
-        self.DUP = 0
+        """
+        Resetta la variabile di controllo della duplicazione
+        (duplicazione avvenuta)
+        """
+        self.dup = 0
 
 
     def _performinternaltasks(self):
         # controllo se l'età è multipla di 10 per consumare in ogni caso
-        if self._age % self.BMRTICK == 0:
-            d = self._age // self.BMRTICK
+        if self.age % self.BMRTICK == 0:
+            d = self.age // self.BMRTICK
+            self.burnfood(1 + (1 * d))
             # 1 + (1 * d): l'energia viene scalata in quantità crescente
             # in funzione delle volte in cui l'organismo si è duplicato
-            self.burnfood(1 + (1 * d))
 
-        # controllo se la eta' e' multipla di cinquecento e il cibo disponibile
-        # e' maggiore di trenta
-        if (self._age % self.DUPTIME == 0) & (self._energy > self.MINENERGYFORDUP):
+        # controllo se la eta' e' multipla di self.DUPTIME e il cibo disponibile
+        # e' maggiore di selfMINENERGYFORDUP
+        if (self.age % self.DUPTIME == 0) & (self.energy > self.MINENERGYFORDUP):
             # è tempo di duplicarsi!
             # vedere come gestire la cosa.
             # emetto qualcosa che lo segnala al mondo esterno?
             # direi di sì ma c'è da vedere come fare
-            self.DUP = 1
+            self.dup = 1
 
     def burnfood(self, x=1):
         print("burnfood(x): ", x)
