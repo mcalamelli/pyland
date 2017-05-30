@@ -13,19 +13,39 @@ class Eukaryota:
     # ogni 500 tick la creatura si duplica
     DUPTIME = 500
     # se il cibo è minore di 30 non c'è energia per la duplicazione
-    MINFOODFORDUP = 30
+    MINENERGYFORDUP = 30
     # variabile per segnalare la duplicazione
     DUP = 0
 
 
     def __init__(self, x, y):
         self._age = 0  # l'età iniziale è 0
-
-        self.posX = x  # la X della posizione iniziale nel mondo
-        self.posY = y  # la Y della posizione iniziale nel mondo
-
+        self._x = x  # la X della posizione iniziale nel mondo
+        self._y = y  # la Y della posizione iniziale nel mondo
         self._energy = self.MAXENERGY  # partiamo con il pieno di energia
 
+
+    @property
+    def x(self):
+        """
+        Imposta oppure ottiene il valore di posizione x
+        """
+        return self._x
+
+    @x.setter
+    def x(self, x):
+        self._x = x
+
+    @property
+    def y(self):
+        """
+        Imposta oppure ottiene il valore di posizione y
+        """
+        return self._y
+
+    @y.setter
+    def y(self, y):
+        self._y = y
 
     @property
     def energy(self):
@@ -37,7 +57,6 @@ class Eukaryota:
     @energy.setter
     def energy(self, x):
         self._energy = x
-
 
     @property
     def age(self):
@@ -52,7 +71,7 @@ class Eukaryota:
 
 
     def eat(self, x):
-        # potrebbe essere interessante il lasciare crescere l'energia > MAXFOOD
+        # potrebbe essere interessante il lasciare crescere l'energia > MAXENERGY
         if self._energy + x > self.MAXENERGY:
             self._energy = self.MAXENERGY
         else:
@@ -79,12 +98,11 @@ class Eukaryota:
 
         # controllo se la eta' e' multipla di cinquecento e il cibo disponibile
         # e' maggiore di trenta
-        if (self._age % self.DUPTIME == 0) & (self._energy > self.MINFOODFORDUP):
+        if (self._age % self.DUPTIME == 0) & (self._energy > self.MINENERGYFORDUP):
             # è tempo di duplicarsi!
             # vedere come gestire la cosa.
             # emetto qualcosa che lo segnala al mondo esterno?
             # direi di sì ma c'è da vedere come fare
-            # ###self._dup(self)
             self.DUP = 1
 
     def burnfood(self, x=1):
