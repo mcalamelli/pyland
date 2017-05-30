@@ -110,6 +110,7 @@ class Eukaryota:
             self.DUP = 1
 
     def burnfood(self, x=1):
+        print("burnfood(x): ", x)
         if self.energy - x <= 0:
             self.energy = 0
         else:
