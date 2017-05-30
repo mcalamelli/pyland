@@ -81,7 +81,7 @@ class Eukaryota:
 
     @age.setter
     def age(self, x):
-        self.age = x
+        self._age = x
 
 
     def eat(self, x):
