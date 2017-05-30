@@ -123,7 +123,7 @@ class Eukaryota:
             # in funzione delle volte in cui l'organismo si è duplicato
 
         # controllo se la eta' e' multipla di self.DUPTIME e il cibo disponibile
-        # e' maggiore di selfMINENERGYFORDUP
+        # e' maggiore di self.MINENERGYFORDUP
         if (self.age % self.DUPTIME == 0) & (self.energy > self.MINENERGYFORDUP):
             # è tempo di duplicarsi!
             # vedere come gestire la cosa.
