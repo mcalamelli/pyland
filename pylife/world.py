@@ -6,10 +6,11 @@ from random import randint
 from PIL import Image
 from pylife import Eukaryota
 
-MAXCREATURES = 500  # 10000
+MAXCREATURES = 10  # 10000
 XSIZE = 300
 YSIZE = 300
 MAXFOOD = MAXCREATURES
+TEMPTICKS = 20
 
 creatures = []
 places = [[0 for x in range(XSIZE)] for y in range(YSIZE)]
@@ -36,6 +37,7 @@ def getplace(x, y):
 
 def checkplace(x, y):
     if not places[x][y] == 0:
+        #print("checkplace(", x, ",", y, ") is busy")
         return False
     else:
         return True
@@ -52,7 +54,7 @@ def addfood(x, y):
 def addcreature(x, y):
     if checkplace(x, y):
         places[x][y] = 1
-        creatures.append(Eukaryota(x, y))
+        creatures.append(Eukaryota(x, y, checkplace))
         return True
     else:
         return False
@@ -70,6 +72,10 @@ for c_i in range(0, MAXCREATURES):
 
 
 print("Numero di creature: ", len(creatures))
+
+for i in range(TEMPTICKS):
+    for creature in creatures:
+        creature.tick()
 
 dump()
 

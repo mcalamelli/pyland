@@ -1,5 +1,6 @@
 # pylint: disable=locally-disabled,missing-docstring,invalid-name
 # -*- coding: utf-8 -*-
+from random import randrange
 
 
 class Eukaryota:
@@ -16,7 +17,7 @@ class Eukaryota:
     MINENERGYFORDUP = 30
 
 
-    def __init__(self, x, y, energy=100, bmrtick=100, age=10000):
+    def __init__(self, x, y, check_pos_cb, energy=100, bmrtick=100, age=10000):
         self._age = 0  # l'età iniziale è 0
         self._x = x  # la X della posizione iniziale nel mondo
         self._y = y  # la Y della posizione iniziale nel mondo
@@ -25,6 +26,11 @@ class Eukaryota:
         self.MAXENERGY = energy
         self.BMRTICK = bmrtick
         self.MAXAGE = age
+
+        if check_pos_cb is None:
+            self.check_position_callback = self.my_pos_cb
+        else:
+            self.check_position_callback = check_pos_cb
 
     @property
     def dup(self):
@@ -114,24 +120,35 @@ class Eukaryota:
         self.dup = 0
 
 
-    def move(self, direction):
+    def move(self):
         """
         Muove l'entità nella direzione specificata
         direction: 0 -> N, 1 -> E, 2 -> S, 3 -> O
+        direction è generata casualmente tra 0 e 3
         """
+        direction = randrange(0, 3, 1)
         if direction == 0:
-            self._y -= 1
-            return True
+            self.y -= 1
         elif direction == 1:
-            self._x += 1
-            return True
+            self.x += 1
         elif direction == 2:
-            self._y += 1
-
+            self.y += 1
         elif direction == 3:
-            self._x -= 1
+            self.x -= 1
+
+        if self.check_position_callback(self.x, self.y) is False:
+            print("can't move to (", self.x, ",", self.y, "): it's busy")
+
+
+    def burnfood(self, x=1):
+        if self.energy - x <= 0:
+            self.energy = 0
         else:
-            return False
+            self.energy -= x
+
+
+    def my_pos_cb(self):
+        pass
 
 
     def _performinternaltasks(self):
@@ -151,10 +168,5 @@ class Eukaryota:
             # direi di sì ma c'è da vedere come fare
             self.dup = 1
 
-    def burnfood(self, x=1):
-        print("burnfood(x): ", x)
-        if self.energy - x <= 0:
-            self.energy = 0
-        else:
-            self.energy -= x
+        self.move()
 
