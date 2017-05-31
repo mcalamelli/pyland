@@ -4,16 +4,34 @@
 
 from random import randint
 from PIL import Image
+#from images2gif import writeGif
+#import images2gif
 from pylife import Eukaryota
+
 
 MAXCREATURES = 10  # 10000
 XSIZE = 300
 YSIZE = 300
 MAXFOOD = MAXCREATURES
-TEMPTICKS = 500
+TEMPTICKS = 5000
 
 creatures = []
 places = [[0 for x in range(XSIZE)] for y in range(YSIZE)]
+images = []
+
+
+def addframe():
+    img = Image.new('RGB', (XSIZE, YSIZE), "black")
+    pixels = img.load()
+
+    for ii in range(img.size[0]):
+        for jj in range(img.size[1]):
+            if getplace(ii, jj) == 1:
+                pixels[ii, jj] = (0, 0, 255)
+            elif getplace(ii, jj) == 9:
+                pixels[ii, jj] = (255, 255, 0)
+
+    images.append(img)
 
 
 def dump():
@@ -81,7 +99,9 @@ print("Numero di creature: ", len(creatures))
 for i in range(TEMPTICKS):
     for creature in creatures:
         creature.tick()
+        # addframe()
 
 dump()
+#writeGif("world.gif", images, duration=0.2)
 
 # https://pymotw.com/2/threading/index.html#module-threading
