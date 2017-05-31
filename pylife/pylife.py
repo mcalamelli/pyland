@@ -17,7 +17,7 @@ class Eukaryota:
     MINENERGYFORDUP = 30
 
 
-    def __init__(self, x, y, check_pos_cb, energy=100, bmrtick=100, age=10000):
+    def __init__(self, x, y, check_pos_cb, move_cb, energy=100, bmrtick=100, age=10000):
         self._age = 0  # l'età iniziale è 0
         self._x = x  # la X della posizione iniziale nel mondo
         self._y = y  # la Y della posizione iniziale nel mondo
@@ -31,6 +31,11 @@ class Eukaryota:
             self.check_position_callback = self.my_pos_cb
         else:
             self.check_position_callback = check_pos_cb
+
+        if move_cb is None:
+            self.move_callback = self.my_move_cb
+        else:
+            self.move_callback = move_cb
 
     @property
     def dup(self):
@@ -137,7 +142,13 @@ class Eukaryota:
             self.x -= 1
 
         if self.check_position_callback(self.x, self.y) is False:
-            print("can't move to (", self.x, ",", self.y, "): it's busy")
+            #print("can't move to (", self.x, ",", self.y, "): it's busy")
+            # la posizione è occupata da una altra creatura oppure da cibo
+            # oppure è fuori dai limiti del mondo
+            # gestire la situazione
+            pass
+        else:
+            self.move_callback(self.x, self.y)
 
 
     def burnfood(self, x=1):
@@ -145,6 +156,10 @@ class Eukaryota:
             self.energy = 0
         else:
             self.energy -= x
+
+
+    def my_move_cb(self):
+        pass
 
 
     def my_pos_cb(self):

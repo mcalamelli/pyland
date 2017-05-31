@@ -10,7 +10,7 @@ MAXCREATURES = 10  # 10000
 XSIZE = 300
 YSIZE = 300
 MAXFOOD = MAXCREATURES
-TEMPTICKS = 20
+TEMPTICKS = 500
 
 creatures = []
 places = [[0 for x in range(XSIZE)] for y in range(YSIZE)]
@@ -36,11 +36,16 @@ def getplace(x, y):
 
 
 def checkplace(x, y):
-    if not places[x][y] == 0:
+    if (x >= XSIZE - 1) or (y >= YSIZE - 1):
+        return False
+    elif not places[x][y] == 0:
         #print("checkplace(", x, ",", y, ") is busy")
         return False
     else:
         return True
+
+def move(x, y):
+    places[x][y] = 1
 
 
 def addfood(x, y):
@@ -54,7 +59,7 @@ def addfood(x, y):
 def addcreature(x, y):
     if checkplace(x, y):
         places[x][y] = 1
-        creatures.append(Eukaryota(x, y, checkplace))
+        creatures.append(Eukaryota(x, y, checkplace, move))
         return True
     else:
         return False
