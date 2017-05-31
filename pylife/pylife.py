@@ -114,6 +114,26 @@ class Eukaryota:
         self.dup = 0
 
 
+    def move(self, direction):
+        """
+        Muove l'entità nella direzione specificata
+        direction: 0 -> N, 1 -> E, 2 -> S, 3 -> O
+        """
+        if direction == 0:
+            self._y -= 1
+            return True
+        elif direction == 1:
+            self._x += 1
+            return True
+        elif direction == 2:
+            self._y += 1
+
+        elif direction == 3:
+            self._x -= 1
+        else:
+            return False
+
+
     def _performinternaltasks(self):
         # controllo se l'età è multipla di 10 per consumare in ogni caso
         if self.age % self.BMRTICK == 0:
