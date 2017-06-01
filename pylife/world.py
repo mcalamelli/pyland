@@ -6,16 +6,16 @@
 # $ python -m cProfile world.py
 
 from random import randint
-from PIL import Image
+from PIL import Image, ImageDraw
 #import moviepy.editor as mpy
 from pylife import Eukaryota
 
 
-MAXCREATURES = 20  # 10000
+MAXCREATURES = 10  # 10000
 XSIZE = 300
 YSIZE = 300
 MAXFOOD = MAXCREATURES
-TEMPTICKS = 10 # 5000
+TEMPTICKS = 5000 # 5000
 
 creatures = []
 places = [[0 for x in range(XSIZE)] for y in range(YSIZE)]
@@ -23,6 +23,8 @@ images = []
 
 world_map = Image.new('RGB', (XSIZE, YSIZE), "black")
 pixels = world_map.load()
+img = Image.new('RGB', (XSIZE, YSIZE), "black")
+drw = ImageDraw.Draw(img)
 
 
 def addframe():
@@ -31,50 +33,50 @@ def addframe():
 
     for ii in range(world_map.size[0]):
         for jj in range(world_map.size[1]):
-            if getplace(ii, jj) == 1:
+            #if getplace(ii, jj) == 1:
+            if places[ii][jj] == 1:
                 pixels[ii, jj] = (0, 0, 255)
             #elif getplace(ii, jj) == 9:
             #    pixels[ii, jj] = (255, 255, 0)
 
-    images.append(world_map)
+    #images.append(world_map)
+
+
+#def dump():
+#    for ii in range(world_map.size[0]):
+#        for jj in range(world_map.size[1]):
+#            if places[ii][jj] == 1:
+#                pixels[ii, jj] = (0, 0, 255)
+#            elif places[ii][jj] == 9:
+#                pixels[ii, jj] = (255, 255, 0)
+#
+#    world_map.show()
+#    # aggiungere salvataggio su file
 
 
 def dump():
-    #img = Image.new('RGB', (XSIZE, YSIZE), "black")
-    #pixels = img.load()
-
-    for ii in range(world_map.size[0]):
-        for jj in range(world_map.size[1]):
-            if getplace(ii, jj) == 1:
-                pixels[ii, jj] = (0, 0, 255)
-            elif getplace(ii, jj) == 9:
-                pixels[ii, jj] = (255, 255, 0)
-
-    #img.show()
-    world_map.show()
-    # aggiungere salvataggio su file
-
-
-def getplace(x, y):
-    return places[x][y]
+    img.show()
 
 
 def checkplace(x, y):
     if (x >= XSIZE - 1) or (y >= YSIZE - 1):
+        drw.point((x, y), fill="red")
         return False
     elif not places[x][y] == 0:
-        #print("checkplace(", x, ",", y, ") is busy")
+        drw.point((x, y), fill="red")
         return False
     else:
         return True
 
 def move(x, y):
     places[x][y] = 1
+    drw.point((x, y), fill="blue")
 
 
 def addfood(x, y):
     if checkplace(x, y):
         places[x][y] = 9
+        drw.point((x, y), fill="yellow")
         return True
     else:
         return False
@@ -84,8 +86,10 @@ def addcreature(x, y):
     if checkplace(x, y):
         places[x][y] = 1
         creatures.append(Eukaryota(x, y, checkplace, move))
+        drw.point((x, y), fill="blue")
         return True
     else:
+        drw.point((x, y), fill="red")
         return False
 
 
@@ -101,15 +105,13 @@ for c_i in range(0, MAXCREATURES):
 
 
 print("Numero di creature: ", len(creatures))
+print("Ticks: ", TEMPTICKS)
 
 for i in range(TEMPTICKS):
     for creature in creatures:
         creature.tick()
-        addframe()
+        #addframe()
 
 dump()
-
-#gif = Image.new('RGB', (XSIZE, YSIZE), "black")  # Image.fromarray(images)
-#gif.show()
-#print(images[3].tobytes())
+del drw
 # https://pymotw.com/2/threading/index.html#module-threading
