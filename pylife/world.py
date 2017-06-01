@@ -2,6 +2,9 @@
 
 # coding: utf-8
 
+# Per la profilazione del codice:
+# $ python -m cProfile world.py
+
 from random import randint
 from PIL import Image
 #import moviepy.editor as mpy
