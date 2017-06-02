@@ -20,7 +20,9 @@ class Eukaryota:
     def __init__(self, x, y, check_pos_cb, move_cb, energy=100, bmrtick=100, age=10000):
         self._age = 0  # l'età iniziale è 0
         self._x = x  # la X della posizione iniziale nel mondo
+        self._prev_x = x  # la X della posizione precedente
         self._y = y  # la Y della posizione iniziale nel mondo
+        self._prev_y = y  # la Y della posizione precedente
         self._energy = energy  # partiamo con il pieno di energia
         self._dup = 0 # variabile di controllo della duplicazione
         self.MAXENERGY = energy
@@ -36,6 +38,28 @@ class Eukaryota:
             self.move_callback = self.my_move_cb
         else:
             self.move_callback = move_cb
+
+    @property
+    def prev_x(self):
+        """
+        Imposta oppure ottiene il valore di posizione x precedente
+        """
+        return self._prev_x
+
+    @prev_x.setter
+    def prev_x(self, x):
+        self._prev_x = x
+
+    @property
+    def prev_y(self):
+        """
+        Imposta oppure ottiene il valore di posizione y precedente
+        """
+        return self._prev_y
+
+    @prev_y.setter
+    def prev_y(self, y):
+        self._prev_y = y
 
     @property
     def dup(self):
@@ -133,12 +157,16 @@ class Eukaryota:
         """
         direction = randrange(0, 3, 1)
         if direction == 0:
+            self.prev_y = self.y
             self.y -= 1
         elif direction == 1:
+            self.prev_x = self.x
             self.x += 1
         elif direction == 2:
+            self.prev_y = self.y
             self.y += 1
         elif direction == 3:
+            self.prev_x = self.x
             self.x -= 1
 
         if self.check_position_callback(self.x, self.y) is False:
@@ -148,7 +176,7 @@ class Eukaryota:
             # gestire la situazione
             pass
         else:
-            self.move_callback(self.x, self.y)
+            self.move_callback(self.x, self.y, self.prev_x, self.prev_y)
 
 
     def burnfood(self, x=1):
@@ -160,7 +188,6 @@ class Eukaryota:
 
     def my_move_cb(self):
         pass
-
 
     def my_pos_cb(self):
         pass
@@ -184,4 +211,3 @@ class Eukaryota:
             self.dup = 1
 
         self.move()
-

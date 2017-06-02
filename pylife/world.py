@@ -32,6 +32,7 @@ drw = ImageDraw.Draw(img)
 img_folder = str(int(time.time()))
 os.mkdir(img_folder)
 
+
 def addframe():
     #img = Image.new('RGB', (XSIZE, YSIZE), "black")
     #pixels = img.load()
@@ -46,7 +47,6 @@ def addframe():
 
     #images.append(world_map)
 
-
 #def dump():
 #    for ii in range(world_map.size[0]):
 #        for jj in range(world_map.size[1]):
@@ -58,10 +58,8 @@ def addframe():
 #    world_map.show()
 #    # aggiungere salvataggio su file
 
-
 def dump():
     img.show()
-
 
 def checkplace(x, y):
     if (x >= XSIZE - 1) or (y >= YSIZE - 1):
@@ -75,11 +73,10 @@ def checkplace(x, y):
     else:
         return True
 
-def move(x, y):
+def move(x, y, prev_x, prev_y):
     places[x][y] = 1
     #drw.point((x, y), fill="blue")
     drawpoint(x, y, "blue")
-
 
 def addfood(x, y):
     if checkplace(x, y):
@@ -89,7 +86,6 @@ def addfood(x, y):
         return True
     else:
         return False
-
 
 def addcreature(x, y):
     if checkplace(x, y):
@@ -103,10 +99,10 @@ def addcreature(x, y):
         drawpoint(x, y, "red")
         return False
 
-
 def drawpoint(x, y, color):
     drw.point((x, y), fill=color)
-    img.save(img_folder + "/" + str(int(time.time())) + ".jpg")
+    #img.save(img_folder + "/" + str(int(time.time())) + ".jpg")
+
 
 for f_i in range(0, MAXFOOD):
     f_x, f_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
@@ -125,9 +121,10 @@ print("Ticks: ", TEMPTICKS)
 for i in range(TEMPTICKS):
     for creature in creatures:
         creature.tick()
+        img.save(img_folder + "/" + str(int(time.time())) + ".jpg")
         #addframe()
 
 dump()
 del drw
 # https://pymotw.com/2/threading/index.html#module-threading
-# $ convert.exe -delay 30 -loop 0 *.jpg world.gif
+# $ convert.exe -delay 5 -loop 0 *.jpg world.gif
