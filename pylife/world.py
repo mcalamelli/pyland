@@ -6,6 +6,8 @@
 # $ python -m cProfile world.py
 # One liner per creazione della gif animata dai file immagine
 # $ convert.exe -delay 5 -loop 0 *.jpg world.gif
+# oppure
+# $ mplayer.exe mf://*.jpg -mf type=jpg -vo gif89a:fps=5:output=world.gif
 
 #import moviepy.editor as mpy
 from random import randint
@@ -41,6 +43,10 @@ parser.add_argument('--ticks',
                     type=int,
                     default=100,
                     help="Numero di tick di vita del mondo virtuale")
+parser.add_argument('--save',
+                    '-s',
+                    action="store_true",
+                    help="Attiva il salvataggio delle singole immagini")
 args = parser.parse_args()
 
 XSIZE = args.xsize
@@ -66,8 +72,9 @@ pixels = world_map.load()
 img = Image.new('RGB', (XSIZE, YSIZE), "black")
 drw = ImageDraw.Draw(img)
 
-img_folder = str(int(time.time()))
-os.mkdir(img_folder)
+if args.save is True:
+    img_folder = str(int(time.time()))
+    os.mkdir(img_folder)
 
 
 #def addframe():
@@ -151,6 +158,7 @@ print("Ticks: ", TICKS)
 for i in range(TICKS):
     for creature in creatures:
         creature.tick()
+    if args.save is True:
         img.save(img_folder + "/" + str(time.time()) + ".jpg",
                  quality=80,
                  optimize=True,
@@ -158,5 +166,6 @@ for i in range(TICKS):
         #addframe()
 
 dump()
-del drw
+if args.save is True:
+    del drw
 # https://pymotw.com/2/threading/index.html#module-threading
