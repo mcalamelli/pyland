@@ -1,4 +1,4 @@
-# pylint: disable=locally-disabled,missing-docstring,invalid-name
+# pylint: disable=locally-disabled,missing-docstring,invalid-name,line-too-long
 
 # coding: utf-8
 
@@ -11,20 +11,55 @@
 from random import randint
 import time
 import os
+import argparse
 from PIL import Image, ImageDraw
 from pylife import Eukaryota
 
 
-MAXCREATURES = 10  # 10000
-XSIZE = 300
-YSIZE = 300
-MAXFOOD = MAXCREATURES
-TEMPTICKS = 100 # 5000
+parser = argparse.ArgumentParser()
+parser.add_argument('--xsize',
+                    '-x',
+                    type=int,
+                    default=300,
+                    help="Dimensione x del mondo virtuale")
+parser.add_argument('--ysize',
+                    '-y',
+                    type=int,
+                    default=300,
+                    help="Dimensione y del mondo virtuale")
+parser.add_argument('--creatures',
+                    '-c',
+                    type=int,
+                    default=20,
+                    help="Numero di creature esistenti all'inizio")
+parser.add_argument('--food',
+                    '-f',
+                    type=int,
+                    help="Quantità di cibo disponibile all'inizio (se non specificato, è uguale al numero delle creature)")
+parser.add_argument('--ticks',
+                    '-t',
+                    type=int,
+                    default=100,
+                    help="Numero di tick di vita del mondo virtuale")
+args = parser.parse_args()
+
+XSIZE = args.xsize
+YSIZE = args.ysize
+CREATURES = args.creatures
+if args.food is None:
+    FOOD = CREATURES
+else:
+    FOOD = args.food
+TICKS = args.ticks
 
 
 creatures = []
 places = [[0 for x in range(XSIZE)] for y in range(YSIZE)]
 images = []
+
+
+#print(args)
+#quit()
 
 world_map = Image.new('RGB', (XSIZE, YSIZE), "black")
 pixels = world_map.load()
@@ -99,21 +134,21 @@ def drawpoint(x, y, color):
     drw.point((x, y), fill=color)
 
 
-for f_i in range(0, MAXFOOD):
+for f_i in range(0, FOOD):
     f_x, f_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
     while not addfood(f_x, f_y):
         f_x, f_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
 
-for c_i in range(0, MAXCREATURES):
+for c_i in range(0, CREATURES):
     c_x, c_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
     while not addcreature(c_x, c_y):
         c_x, c_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
 
 
 print("Numero di creature: ", len(creatures))
-print("Ticks: ", TEMPTICKS)
+print("Ticks: ", TICKS)
 
-for i in range(TEMPTICKS):
+for i in range(TICKS):
     for creature in creatures:
         creature.tick()
         img.save(img_folder + "/" + str(time.time()) + ".jpg",
