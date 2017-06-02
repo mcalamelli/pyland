@@ -6,6 +6,8 @@
 # $ python -m cProfile world.py
 
 from random import randint
+import time
+import os
 from PIL import Image, ImageDraw
 #import moviepy.editor as mpy
 from pylife import Eukaryota
@@ -17,6 +19,7 @@ YSIZE = 300
 MAXFOOD = MAXCREATURES
 TEMPTICKS = 5000 # 5000
 
+
 creatures = []
 places = [[0 for x in range(XSIZE)] for y in range(YSIZE)]
 images = []
@@ -26,6 +29,8 @@ pixels = world_map.load()
 img = Image.new('RGB', (XSIZE, YSIZE), "black")
 drw = ImageDraw.Draw(img)
 
+img_folder = str(int(time.time()))
+os.mkdir(img_folder)
 
 def addframe():
     #img = Image.new('RGB', (XSIZE, YSIZE), "black")
@@ -60,23 +65,27 @@ def dump():
 
 def checkplace(x, y):
     if (x >= XSIZE - 1) or (y >= YSIZE - 1):
-        drw.point((x, y), fill="red")
+        #drw.point((x, y), fill="red")
+        drawpoint(x, y, "red")
         return False
     elif not places[x][y] == 0:
-        drw.point((x, y), fill="red")
+        #drw.point((x, y), fill="red")
+        drawpoint(x, y, "red")
         return False
     else:
         return True
 
 def move(x, y):
     places[x][y] = 1
-    drw.point((x, y), fill="blue")
+    #drw.point((x, y), fill="blue")
+    drawpoint(x, y, "blue")
 
 
 def addfood(x, y):
     if checkplace(x, y):
         places[x][y] = 9
-        drw.point((x, y), fill="yellow")
+        #drw.point((x, y), fill="yellow")
+        drawpoint(x, y, "yellow")
         return True
     else:
         return False
@@ -86,12 +95,18 @@ def addcreature(x, y):
     if checkplace(x, y):
         places[x][y] = 1
         creatures.append(Eukaryota(x, y, checkplace, move))
-        drw.point((x, y), fill="blue")
+        #drw.point((x, y), fill="blue")
+        drawpoint(x, y, "blue")
         return True
     else:
-        drw.point((x, y), fill="red")
+        #drw.point((x, y), fill="red")
+        drawpoint(x, y, "red")
         return False
 
+
+def drawpoint(x, y, color):
+    drw.point((x, y), fill=color)
+    img.save(img_folder + "/" + str(int(time.time())) + ".jpg")
 
 for f_i in range(0, MAXFOOD):
     f_x, f_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
@@ -115,3 +130,4 @@ for i in range(TEMPTICKS):
 dump()
 del drw
 # https://pymotw.com/2/threading/index.html#module-threading
+# $ convert.exe -delay 30 -loop 0 *.jpg world.gif
