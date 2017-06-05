@@ -5,7 +5,7 @@
 # Per la profilazione del codice:
 # $ python -m cProfile world.py
 # One liner per creazione della gif animata dai file immagine
-# $ convert.exe -delay 5 -loop 0 *.jpg world.gif
+# $ convert.exe -delay 5 -loop 0 $(ls -v *.bmp) world.gif
 # oppure
 # $ mplayer.exe mf://*.jpg -mf type=jpg -vo gif89a:fps=5:output=world.gif
 
@@ -119,7 +119,7 @@ def move(x, y, prev_x, prev_y):
     places[prev_x][prev_y] = 0
     places[x][y] = 1
     drawpoint(prev_x, prev_y, "black")
-    drawpoint(x, y, "blue")
+    drawpoint(x, y, "DodgerBlue")
 
 def addfood(x, y):
     if checkplace(x, y):
@@ -133,7 +133,7 @@ def addcreature(x, y):
     if checkplace(x, y):
         places[x][y] = 1
         creatures.append(Eukaryota(x, y, checkplace, move))
-        drawpoint(x, y, "blue")
+        drawpoint(x, y, "DodgerBlue")
         return True
     else:
         drawpoint(x, y, "red")
