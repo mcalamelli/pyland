@@ -168,7 +168,7 @@ for i in range(TICKS):
         creature.tick()
     if (args.save is True) or (args.build is True):
         img.save(img_folder + "/" + str(i) + ".bmp")
-        
+
 
 if args.build is True:
     # creare la gif animata
