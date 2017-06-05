@@ -116,7 +116,9 @@ def checkplace(x, y):
         return True
 
 def move(x, y, prev_x, prev_y):
+    places[prev_x][prev_y] = 0
     places[x][y] = 1
+    drawpoint(prev_x, prev_y, "black")
     drawpoint(x, y, "blue")
 
 def addfood(x, y):
@@ -159,10 +161,7 @@ for i in range(TICKS):
     for creature in creatures:
         creature.tick()
     if args.save is True:
-        img.save(img_folder + "/" + str(time.time()) + ".jpg",
-                 quality=80,
-                 optimize=True,
-                 progressive=True)
+        img.save(img_folder + "/" + str(i) + ".bmp")
         #addframe()
 
 dump()
