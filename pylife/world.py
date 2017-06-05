@@ -15,6 +15,7 @@ import time
 import os
 import argparse
 from PIL import Image, ImageDraw
+from wand.image import Image as WImage
 from pylife import Eukaryota
 
 
@@ -47,6 +48,10 @@ parser.add_argument('--save',
                     '-s',
                     action="store_true",
                     help="Attiva il salvataggio delle singole immagini")
+parser.add_argument('--build',
+                    '-b',
+                    action="store_true",
+                    help="Attiva la creazione della gif animata")
 args = parser.parse_args()
 
 XSIZE = args.xsize
@@ -65,10 +70,11 @@ images = []
 
 
 #print(args)
+#print(args.build)
 #quit()
 
-world_map = Image.new('RGB', (XSIZE, YSIZE), "black")
-pixels = world_map.load()
+#world_map = Image.new('RGB', (XSIZE, YSIZE), "black")
+#pixels = world_map.load()
 img = Image.new('RGB', (XSIZE, YSIZE), "black")
 drw = ImageDraw.Draw(img)
 
@@ -160,9 +166,25 @@ print("Ticks: ", TICKS)
 for i in range(TICKS):
     for creature in creatures:
         creature.tick()
-    if args.save is True:
+    if (args.save is True) or (args.build is True):
         img.save(img_folder + "/" + str(i) + ".bmp")
-        #addframe()
+        
+
+if args.build is True:
+    # creare la gif animata
+    # convert.exe -delay 5 -loop 0 $(ls -v *.bmp) world.gif
+    entries = []
+    for entry in os.scandir(img_folder):
+        if entry.is_file() is True:
+            entries.append(os.path.splitext(entry.name)[0])
+    entries.sort(key=int)
+    with WImage() as wand:
+        for item in entries:
+            with WImage(filename=img_folder + "/" + str(item) + ".bmp") as frame:
+                frame.delay = 5
+                wand.sequence.append(frame)
+        wand.type = 'optimize'
+        wand.save(filename=img_folder + "/world.gif")
 
 dump()
 if args.save is True:
