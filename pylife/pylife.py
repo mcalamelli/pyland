@@ -155,27 +155,30 @@ class Eukaryota:
         direction: 0 -> N, 1 -> E, 2 -> S, 3 -> O
         direction è generata casualmente tra 0 e 3
         """
+        t_x = self.x
+        t_y = self.y
+
         direction = randrange(0, 3, 1)
         if direction == 0:
-            self.prev_y = self.y
-            self.y -= 1
+            t_y -= 1
         elif direction == 1:
-            self.prev_x = self.x
-            self.x += 1
+            t_x += 1
         elif direction == 2:
-            self.prev_y = self.y
-            self.y += 1
+            t_y += 1
         elif direction == 3:
-            self.prev_x = self.x
-            self.x -= 1
+            t_x -= 1
 
-        if self.check_position_callback(self.x, self.y) is False:
+        if self.check_position_callback(t_x, t_y) is False:
             #print("can't move to (", self.x, ",", self.y, "): it's busy")
             # la posizione è occupata da una altra creatura oppure da cibo
             # oppure è fuori dai limiti del mondo
             # gestire la situazione
             pass
         else:
+            self.prev_x = self.x
+            self.prev_y = self.y
+            self.x = t_x
+            self.y = t_y
             self.move_callback(self.x, self.y, self.prev_x, self.prev_y)
 
 
