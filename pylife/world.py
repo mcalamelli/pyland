@@ -76,6 +76,7 @@ places = [[0 for x in range(XSIZE)] for y in range(YSIZE)]
 
 img = Image.new('RGB', (XSIZE, YSIZE), "black")
 drw = ImageDraw.Draw(img)
+wand = WImage()
 
 if args.save is True:
     img_folder = str(int(time.time()))
@@ -141,28 +142,38 @@ for i in range(TICKS):
         creature.tick()
     if (args.save is True) or (args.build is True):
         # salvo i file BMP relativi ad ogni tick
-        img.save(img_folder + "/" + str(i) + ".bmp")
+        img_path = img_folder + "/" + str(i).zfill(len(str(TICKS - 1))) + ".bmp"
+        img.save(img_path)
+        #print("Salvataggio immagine temporanea #" + str(i) + "/" +  str(TICKS))
+        with WImage(filename=img_path) as frame:
+            frame.delay = 5
+            wand.sequence.append(frame)
+            #print("Aggiunta alla sequenza #" + str(i) + "/" +  str(TICKS))
+        os.remove(img_path) # funziona, vedere come gestire la cosa
+
 
 
 if args.build is True:
     # crearo la gif animata
-    entries = []
-    for entry in os.scandir(img_folder):
-        if entry.is_file() is True:
-            entries.append(os.path.splitext(entry.name)[0])
-    entries.sort(key=int)
-    with WImage() as wand:
-        for item in entries:
-            with WImage(filename=img_folder + "/" + str(item) + ".bmp") as frame:
-                frame.delay = 5
-                wand.sequence.append(frame)
-        wand.type = 'optimize'
-        wand.save(filename=img_folder + "/world.gif")
-    if args.delete is True:
-        # elimino i file BMP utilizzati per creare la GIF
-        entries = list(entries)
-        for bmp in entries:
-            os.remove(img_folder + "/" + str(bmp) + ".bmp")
+    # entries = []
+    # for entry in os.scandir(img_folder):
+    #     if entry.is_file() is True:
+    #         entries.append(os.path.splitext(entry.name)[0])
+    # entries.sort(key=int)
+    # with WImage() as wand1:
+    #     for item in entries:
+    #         with WImage(filename=img_folder + "/" + str(item) + ".bmp") as frame:
+    #             frame.delay = 5
+    #             wand1.sequence.append(frame)
+    #     wand1.type = 'optimize'
+    #     wand1.save(filename=img_folder + "/world.gif")
+    # if args.delete is True:
+    #     # elimino i file BMP utilizzati per creare la GIF
+    #     entries = list(entries)
+    #     for bmp in entries:
+    #         os.remove(img_folder + "/" + str(bmp) + ".bmp")
+    print("Salvataggio sequenza...")
+    wand.save(filename=img_folder + "/world.gif")
 
 
 #dump()
