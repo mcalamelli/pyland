@@ -73,40 +73,12 @@ images = []
 #print(args.build)
 #quit()
 
-#world_map = Image.new('RGB', (XSIZE, YSIZE), "black")
-#pixels = world_map.load()
 img = Image.new('RGB', (XSIZE, YSIZE), "black")
 drw = ImageDraw.Draw(img)
 
 if args.save is True:
     img_folder = str(int(time.time()))
     os.mkdir(img_folder)
-
-
-#def addframe():
-#    #img = Image.new('RGB', (XSIZE, YSIZE), "black")
-#    #pixels = img.load()
-#
-#    for ii in range(world_map.size[0]):
-#        for jj in range(world_map.size[1]):
-#            #if getplace(ii, jj) == 1:
-#            if places[ii][jj] == 1:
-#                pixels[ii, jj] = (0, 0, 255)
-#            #elif getplace(ii, jj) == 9:
-#            #    pixels[ii, jj] = (255, 255, 0)
-#
-#    #images.append(world_map)
-
-#def dump():
-#    for ii in range(world_map.size[0]):
-#        for jj in range(world_map.size[1]):
-#            if places[ii][jj] == 1:
-#                pixels[ii, jj] = (0, 0, 255)
-#            elif places[ii][jj] == 9:
-#                pixels[ii, jj] = (255, 255, 0)
-#
-#    world_map.show()
-#    # aggiungere salvataggio su file
 
 def dump():
     img.show()
