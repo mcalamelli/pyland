@@ -69,7 +69,6 @@ TICKS = args.ticks
 
 creatures = []
 places = [[0 for x in range(XSIZE)] for y in range(YSIZE)]
-images = []
 
 #print(args)
 #print(args.build)
