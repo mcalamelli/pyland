@@ -9,7 +9,6 @@
 # oppure
 # $ mplayer.exe mf://*.jpg -mf type=jpg -vo gif89a:fps=5:output=world.gif
 
-#import moviepy.editor as mpy
 from random import randint
 import time
 import os
@@ -52,6 +51,10 @@ parser.add_argument('--build',
                     '-b',
                     action="store_true",
                     help="Attiva la creazione della gif animata")
+parser.add_argument('--delete',
+                    '-d',
+                    action="store_true",
+                    help="Cancella i file BMP utilizzati per la creazione della gif animata (vale solo epr opzione -b / --build")
 args = parser.parse_args()
 
 XSIZE = args.xsize
@@ -67,7 +70,6 @@ TICKS = args.ticks
 creatures = []
 places = [[0 for x in range(XSIZE)] for y in range(YSIZE)]
 images = []
-
 
 #print(args)
 #print(args.build)
@@ -139,12 +141,12 @@ for i in range(TICKS):
     for creature in creatures:
         creature.tick()
     if (args.save is True) or (args.build is True):
+        # salvo i file BMP relativi ad ogni tick
         img.save(img_folder + "/" + str(i) + ".bmp")
 
 
 if args.build is True:
-    # creare la gif animata
-    # convert.exe -delay 5 -loop 0 $(ls -v *.bmp) world.gif
+    # crearo la gif animata
     entries = []
     for entry in os.scandir(img_folder):
         if entry.is_file() is True:
@@ -157,8 +159,14 @@ if args.build is True:
                 wand.sequence.append(frame)
         wand.type = 'optimize'
         wand.save(filename=img_folder + "/world.gif")
+    if args.delete is True:
+        # elimino i file BMP utilizzati per creare la GIF
+        entries = list(entries)
+        for bmp in entries:
+            os.remove(img_folder + "/" + str(bmp) + ".bmp")
 
-dump()
+
+#dump()
 if args.save is True:
     del drw
 # https://pymotw.com/2/threading/index.html#module-threading
