@@ -78,7 +78,7 @@ img = Image.new('RGB', (XSIZE, YSIZE), "black")
 drw = ImageDraw.Draw(img)
 wand = WImage()
 
-if args.save is True:
+if (args.save is True) or (args.build is True):
     img_folder = str(int(time.time()))
     os.mkdir(img_folder)
 
