@@ -87,14 +87,18 @@ def dump():
 
 def checkplace(x, y):
     if (x >= XSIZE - 1) or (y >= YSIZE - 1) or (x <= 0) or (y <= 0):
+        # fuori dai confini del mondo, non valida
         drawpoint(x, y, "red")
         return -1  # return False
     elif places[x][y] == 1:
+        # posizione già occupata, non valida
         drawpoint(x, y, "red")
         return -1  # return False
     elif places[x][y] == 9:
+        # posizione occupata da cibo, valida
         return 0
     else:
+        # posizione libera
         return 1  # return True
 
 def move(x, y, prev_x, prev_y):
@@ -111,8 +115,10 @@ def addfood(x, y):
     else:
         return False
 
-def dead():
-    pass
+def dead(o):
+    places[o.x][o.y] = 0
+    drawpoint(o.x, o.y, "DeepPink")
+    creatures.remove(o)
 
 def addcreature(x, y):
     if checkplace(x, y):
@@ -150,13 +156,10 @@ for i in range(TICKS):
         # salvo i file BMP relativi ad ogni tick
         img_path = img_folder + "/" + str(i).zfill(len(str(TICKS - 1))) + ".bmp"
         img.save(img_path)
-        #print("Salvataggio immagine temporanea #" + str(i) + "/" +  str(TICKS))
         with WImage(filename=img_path) as frame:
             frame.delay = 5
             wand.sequence.append(frame)
-            #print("Aggiunta alla sequenza #" + str(i) + "/" +  str(TICKS))
         os.remove(img_path) # funziona, vedere come gestire la cosa
-
 
 
 if args.build is True:
@@ -183,6 +186,10 @@ if args.build is True:
 
 
 #dump()
+
+for c in creatures:
+    print(c)
+
 if args.save is True:
     del drw
 # https://pymotw.com/2/threading/index.html#module-threading

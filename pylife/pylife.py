@@ -139,8 +139,7 @@ class Eukaryota:
             self.age += 1  # incremento l'età della creatura
             self._performinternaltasks()
         else:
-            print(str(self) + " is dead.")
-            #pass
+            self.dead_callback(self)
 
 
     def isdead(self):
