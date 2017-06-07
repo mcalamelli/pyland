@@ -159,7 +159,7 @@ class Eukaryota:
         t_x = self.x
         t_y = self.y
 
-        direction = randrange(0, 3, 1)
+        direction = randrange(0, 4, 1)
         if direction == 0:
             t_y -= 1
         elif direction == 1:

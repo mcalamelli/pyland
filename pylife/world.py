@@ -86,7 +86,7 @@ def dump():
     img.show()
 
 def checkplace(x, y):
-    if (x >= XSIZE - 1) or (y >= YSIZE - 1) or (x < 0) or (y < 0):
+    if (x >= XSIZE - 1) or (y >= YSIZE - 1) or (x <= 0) or (y <= 0):
         drawpoint(x, y, "red")
         return -1  # return False
     elif places[x][y] == 1:
