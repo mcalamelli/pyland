@@ -137,6 +137,7 @@ for c_i in range(0, CREATURES):
 
 
 print("Numero di creature: ", len(creatures))
+print("Cibo disponibile: ", FOOD)
 print("Ticks: ", TICKS)
 
 for i in range(TICKS):
