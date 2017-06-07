@@ -115,15 +115,23 @@ def addfood(x, y):
     else:
         return False
 
-def dead(o):
+def die(o):
     places[o.x][o.y] = 0
     drawpoint(o.x, o.y, "DeepPink")
     creatures.remove(o)
 
+def duplicate(x, y):
+    t_x = x
+    t_y = y
+    while not addcreature(t_x, t_y):
+        print("Trying to duplicate in a wrong position")
+        t_x, t_y = randint(t_x - 3, t_x + 3), randint(t_y - 3, t_y + 3)
+    print("Creature: " + str(len(creatures)))
+
 def addcreature(x, y):
     if checkplace(x, y):
         places[x][y] = 1
-        creatures.append(Eukaryota(x, y, checkplace, move, dead))
+        creatures.append(Eukaryota(x, y, checkplace, move, die, duplicate))
         drawpoint(x, y, "DodgerBlue")
         return True
     else:

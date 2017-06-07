@@ -1,4 +1,4 @@
-# pylint: disable=locally-disabled,missing-docstring,invalid-name
+# pylint: disable=locally-disabled,missing-docstring,invalid-name,line-too-long
 # -*- coding: utf-8 -*-
 from random import randrange
 
@@ -11,13 +11,13 @@ class Eukaryota:
     MAXENERGY = 100
     # ogni 100 tick il cibo cala di una unità (BMR == metabolismo basale)
     BMRTICK = 100
-    # ogni 500 tick la creatura si duplica
-    DUPTIME = 500
-    # se il cibo è minore di 30 non c'è energia per la duplicazione
+    # ogni 200 tick la creatura si duplica
+    DUPTIME = 200
+    # se l'energia è minore di 30 non c'è la duplicazione
     MINENERGYFORDUP = 30
 
 
-    def __init__(self, x, y, check_pos_cb, move_cb, dead_cb, energy=100, bmrtick=100, age=10000):
+    def __init__(self, x, y, check_pos_cb, move_cb, die_cb, duplicate_cb, energy=100, bmrtick=100, age=10000):
         self._age = 0  # l'età iniziale è 0
         self._x = x  # la X della posizione iniziale nel mondo
         self._prev_x = x  # la X della posizione precedente
@@ -39,10 +39,15 @@ class Eukaryota:
         else:
             self.move_callback = move_cb
 
-        if dead_cb is None:
-            self.dead_callback = self.my_dead_cb
+        if die_cb is None:
+            self.die_callback = self.my_die_cb
         else:
-            self.dead_callback = dead_cb
+            self.die_callback = die_cb
+
+        if duplicate_cb is None:
+            self.duplicate_callback = self.my_duplicate_cb
+        else:
+            self.duplicate_callback = duplicate_cb
 
     @property
     def prev_x(self):
@@ -139,7 +144,7 @@ class Eukaryota:
             self.age += 1  # incremento l'età della creatura
             self._performinternaltasks()
         else:
-            self.dead_callback(self)
+            self.die_callback(self)
 
 
     def isdead(self):
@@ -214,7 +219,10 @@ class Eukaryota:
     def my_pos_cb(self):
         pass
 
-    def my_dead_cb(self):
+    def my_die_cb(self):
+        pass
+
+    def my_duplicate_cb(self):
         pass
 
     def _performinternaltasks(self):
@@ -233,5 +241,7 @@ class Eukaryota:
             # emetto qualcosa che lo segnala al mondo esterno?
             # direi di sì ma c'è da vedere come fare
             self.dup = 1
+            self.duplicate_callback(self.x, self.y)
+            print("Duplicate @" + str(self.age) + " tick.")
 
         self.move()
