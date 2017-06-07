@@ -17,7 +17,7 @@ class Eukaryota:
     MINENERGYFORDUP = 30
 
 
-    def __init__(self, x, y, check_pos_cb, move_cb, energy=100, bmrtick=100, age=10000):
+    def __init__(self, x, y, check_pos_cb, move_cb, dead_cb, energy=100, bmrtick=100, age=10000):
         self._age = 0  # l'età iniziale è 0
         self._x = x  # la X della posizione iniziale nel mondo
         self._prev_x = x  # la X della posizione precedente
@@ -38,6 +38,11 @@ class Eukaryota:
             self.move_callback = self.my_move_cb
         else:
             self.move_callback = move_cb
+
+        if dead_cb is None:
+            self.dead_callback = self.my_dead_cb
+        else:
+            self.dead_callback = dead_cb
 
     @property
     def prev_x(self):
@@ -130,8 +135,12 @@ class Eukaryota:
         """
         L'unità di tempo
         """
-        self.age += 1  # incremento l'età della creatura
-        self._performinternaltasks()
+        if self.isdead() is False:
+            self.age += 1  # incremento l'età della creatura
+            self._performinternaltasks()
+        else:
+            print(str(self) + " is dead.")
+            #pass
 
 
     def isdead(self):
@@ -206,6 +215,8 @@ class Eukaryota:
     def my_pos_cb(self):
         pass
 
+    def my_dead_cb(self):
+        pass
 
     def _performinternaltasks(self):
         # controllo se l'età è multipla di 10 per consumare in ogni caso

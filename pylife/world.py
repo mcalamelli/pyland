@@ -111,10 +111,13 @@ def addfood(x, y):
     else:
         return False
 
+def dead():
+    pass
+
 def addcreature(x, y):
     if checkplace(x, y):
         places[x][y] = 1
-        creatures.append(Eukaryota(x, y, checkplace, move))
+        creatures.append(Eukaryota(x, y, checkplace, move, dead))
         drawpoint(x, y, "DodgerBlue")
         return True
     else:
