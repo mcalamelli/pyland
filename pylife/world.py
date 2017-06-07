@@ -88,12 +88,14 @@ def dump():
 def checkplace(x, y):
     if (x >= XSIZE - 1) or (y >= YSIZE - 1):
         drawpoint(x, y, "red")
-        return False
-    elif not places[x][y] == 0:
+        return -1  # return False
+    elif places[x][y] == 1:
         drawpoint(x, y, "red")
-        return False
+        return -1  # return False
+    elif places[x][y] == 9:
+        return 0
     else:
-        return True
+        return 1  # return True
 
 def move(x, y, prev_x, prev_y):
     places[prev_x][prev_y] = 0

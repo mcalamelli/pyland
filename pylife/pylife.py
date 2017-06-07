@@ -119,10 +119,11 @@ class Eukaryota:
 
     def eat(self, x):
         # potrebbe essere interessante il lasciare crescere l'energia > MAXENERGY
-        if self.energy + x > self.MAXENERGY:
-            self.energy = self.MAXENERGY
-        else:
-            self.energy += x
+        # if self.energy + x > self.MAXENERGY:
+        #    self.energy = self.MAXENERGY
+        #else:
+        #    self.energy += x
+        self.energy += x
 
 
     def tick(self):
@@ -168,13 +169,23 @@ class Eukaryota:
         elif direction == 3:
             t_x -= 1
 
-        if self.check_position_callback(t_x, t_y) is False:
+        pos_status = self.check_position_callback(t_x, t_y)
+        if pos_status == -1:
             #print("can't move to (", self.x, ",", self.y, "): it's busy")
-            # la posizione è occupata da una altra creatura oppure da cibo
-            # oppure è fuori dai limiti del mondo
-            # gestire la situazione
+            # la posizione è occupata da una altra creatura oppure è fuori
+            # dai limiti del mondo - gestire la situazione
             pass
+        elif pos_status == 0:
+            # la posizione è occupata da cibo
+            # la considero come valida, mangio il cibo e ci vado
+            self.eat(30) # considero una unità di cibo = 30 punti energia
+            self.prev_x = self.x
+            self.prev_y = self.y
+            self.x = t_x
+            self.y = t_y
+            self.move_callback(self.x, self.y, self.prev_x, self.prev_y)
         else:
+            # la posizione è vuota, ci vado
             self.prev_x = self.x
             self.prev_y = self.y
             self.x = t_x
