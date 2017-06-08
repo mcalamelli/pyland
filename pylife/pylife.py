@@ -5,14 +5,16 @@ from random import randrange
 
 class Eukaryota:
     """Base creature for pyLife"""
-    # 10000 millisecondi
+    # L'età massima di una creatura (10000 tick)
     MAXAGE = 10000
-    # 100 cibo
-    MAXENERGY = 100
-    # ogni 100 tick il cibo cala di una unità (BMR == metabolismo basale)
+
+    # L'energia di partenza di una creatura
+    #STARTENERGY = 100
+
+    # ogni 100 tick l'energia cala di una unità (BMR == metabolismo basale)
     BMRTICK = 100
     # ogni 200 tick la creatura si duplica
-    DUPTIME = 200
+    DUPTIME = 400
     # se l'energia è minore di 30 non c'è la duplicazione
     MINENERGYFORDUP = 30
 
@@ -25,7 +27,7 @@ class Eukaryota:
         self._prev_y = y  # la Y della posizione precedente
         self._energy = energy  # partiamo con il pieno di energia
         self._dup = 0 # variabile di controllo della duplicazione
-        self.MAXENERGY = energy
+        #self.STARTENERGY = energy
         self.BMRTICK = bmrtick
         self.MAXAGE = age
 
@@ -128,9 +130,9 @@ class Eukaryota:
 
 
     def eat(self, x):
-        # potrebbe essere interessante il lasciare crescere l'energia > MAXENERGY
-        # if self.energy + x > self.MAXENERGY:
-        #    self.energy = self.MAXENERGY
+        # potrebbe essere interessante il lasciare crescere l'energia > STARTENERGY
+        # if self.energy + x > self.STARTENERGY:
+        #    self.energy = self.STARTENERGY
         #else:
         #    self.energy += x
         self.energy += x
@@ -241,7 +243,8 @@ class Eukaryota:
             # emetto qualcosa che lo segnala al mondo esterno?
             # direi di sì ma c'è da vedere come fare
             self.dup = 1
+            self.burnfood(15)  # tolgo 15 punti di energia alla duplicazione
             self.duplicate_callback(self.x, self.y)
-            print("Duplicate @" + str(self.age) + " tick.")
+            # print("Duplicate @" + str(self.age) + " tick.")
 
         self.move()
