@@ -208,7 +208,7 @@ class Eukaryota:
             self.move_callback(self.x, self.y, self.prev_x, self.prev_y)
 
 
-    def burnfood(self, x=1):
+    def burnenergy(self, x=1):
         if self.energy - x <= 0:
             self.energy = 0
         else:
@@ -231,7 +231,7 @@ class Eukaryota:
         # controllo se l'età è multipla di 10 per consumare in ogni caso
         if self.age % self.BMRTICK == 0:
             d = self.age // self.BMRTICK
-            self.burnfood(1 + (1 * d))
+            self.burnenergy(1 + (1 * d))
             # 1 + (1 * d): l'energia viene scalata in quantità crescente
             # in funzione delle volte in cui l'organismo si è duplicato
 
@@ -243,7 +243,7 @@ class Eukaryota:
             # emetto qualcosa che lo segnala al mondo esterno?
             # direi di sì ma c'è da vedere come fare
             self.dup = 1
-            self.burnfood(15)  # tolgo 15 punti di energia alla duplicazione
+            self.burnenergy(15)  # tolgo 15 punti di energia alla duplicazione
             self.duplicate_callback(self.x, self.y)
             # print("Duplicate @" + str(self.age) + " tick.")
 
