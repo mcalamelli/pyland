@@ -6,20 +6,22 @@ from random import randrange
 class Eukaryota:
     """Base creature for pyLife"""
     # L'età massima di una creatura (10000 tick)
-    MAXAGE = 10000
+    #MAXAGE = 10000
 
     # L'energia di partenza di una creatura
     #STARTENERGY = 100
 
     # ogni 100 tick l'energia cala di una unità (BMR == metabolismo basale)
-    BMRTICK = 100
+    #BMRTICK = 100
     # ogni 200 tick la creatura si duplica
-    DUPTIME = 400
+    #DUPTIME = 400
     # se l'energia è minore di 30 non c'è la duplicazione
-    MINENERGYFORDUP = 30
+    #MINENERGYFORDUP = 30
 
 
-    def __init__(self, x, y, check_pos_cb, move_cb, die_cb, duplicate_cb, energy=100, bmrtick=100, age=10000):
+    def __init__(self, x, y,
+                 check_pos_cb, move_cb, die_cb, duplicate_cb,
+                 energy, bmrtick, age, minenergyfordup, duptime):
         self._age = 0  # l'età iniziale è 0
         self._x = x  # la X della posizione iniziale nel mondo
         self._prev_x = x  # la X della posizione precedente
@@ -30,6 +32,8 @@ class Eukaryota:
         #self.STARTENERGY = energy
         self.BMRTICK = bmrtick
         self.MAXAGE = age
+        self.MINENERGYFORDUP = minenergyfordup
+        self.DUPTIME = duptime
 
         if check_pos_cb is None:
             self.check_position_callback = self.my_pos_cb

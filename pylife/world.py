@@ -13,6 +13,7 @@ from random import randint
 import time
 import os
 import argparse
+import json
 from PIL import Image, ImageDraw
 from wand.image import Image as WImage
 from pylife import Eukaryota
@@ -55,6 +56,12 @@ parser.add_argument('--delete',
                     '-d',
                     action="store_true",
                     help="Cancella i file BMP utilizzati per la creazione della gif animata (vale solo epr opzione -b / --build")
+parser.add_argument('--inputfile',
+                    '-i',
+                    type=argparse.FileType('r'),
+                    default='default.json',
+                    metavar='<inputfile>',
+                    help='Specifica il file di inizializzazione delle creature (default: default.json)')
 args = parser.parse_args()
 
 XSIZE = args.xsize
@@ -65,13 +72,14 @@ if args.food is None:
 else:
     FOOD = args.food
 TICKS = args.ticks
+creature_data = json.load(args.inputfile)
 
 
 creatures = []
 places = [[0 for x in range(XSIZE)] for y in range(YSIZE)]
 
 #print(args)
-#print(args.build)
+#print(creature_data)
 #quit()
 
 img = Image.new('RGB', (XSIZE, YSIZE), "black")
@@ -131,7 +139,8 @@ def duplicate(x, y):
 def addcreature(x, y):
     if checkplace(x, y):
         places[x][y] = 1
-        creatures.append(Eukaryota(x, y, checkplace, move, die, duplicate))
+        #creatures.append(Eukaryota(x, y, checkplace, move, die, duplicate))
+        creatures.append(Eukaryota(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0]))
         drawpoint(x, y, "DodgerBlue")
         return True
     else:
