@@ -217,6 +217,7 @@ class Eukaryota:
             self.energy = 0
         else:
             self.energy -= x
+        print("[" + str(self) + "] Energy: " + str(self.energy) + " Tick: " + str(self.age))
 
 
     def my_move_cb(self):
@@ -234,7 +235,7 @@ class Eukaryota:
     def _performinternaltasks(self):
         # controllo se l'età è multipla di 10 per consumare in ogni caso
         if self.age % self.BMRTICK == 0:
-            d = self.age // self.BMRTICK
+            d = self.age // self.DUPTIME
             self.burnenergy(1 + (1 * d))
             # 1 + (1 * d): l'energia viene scalata in quantità crescente
             # in funzione delle volte in cui l'organismo si è duplicato
