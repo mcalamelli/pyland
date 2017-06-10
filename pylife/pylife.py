@@ -5,18 +5,6 @@ from random import randrange
 
 class Eukaryota:
     """Base creature for pyLife"""
-    # L'età massima di una creatura (10000 tick)
-    #MAXAGE = 10000
-
-    # L'energia di partenza di una creatura
-    #STARTENERGY = 100
-
-    # ogni 100 tick l'energia cala di una unità (BMR == metabolismo basale)
-    #BMRTICK = 100
-    # ogni 200 tick la creatura si duplica
-    #DUPTIME = 400
-    # se l'energia è minore di 30 non c'è la duplicazione
-    #MINENERGYFORDUP = 30
 
 
     def __init__(self, x, y,
@@ -29,7 +17,6 @@ class Eukaryota:
         self._prev_y = y  # la Y della posizione precedente
         self._energy = energy  # partiamo con il pieno di energia
         self._dup = 0 # variabile di controllo della duplicazione
-        #self.STARTENERGY = energy
         self.BMRTICK = bmrtick
         self.MAXAGE = age
         self.MINENERGYFORDUP = minenergyfordup
@@ -134,11 +121,6 @@ class Eukaryota:
 
 
     def eat(self, x):
-        # potrebbe essere interessante il lasciare crescere l'energia > STARTENERGY
-        # if self.energy + x > self.STARTENERGY:
-        #    self.energy = self.STARTENERGY
-        #else:
-        #    self.energy += x
         self.energy += x
 
 
@@ -190,7 +172,6 @@ class Eukaryota:
 
         pos_status = self.check_position_callback(t_x, t_y)
         if pos_status == -1:
-            #print("can't move to (", self.x, ",", self.y, "): it's busy")
             # la posizione è occupata da una altra creatura oppure è fuori
             # dai limiti del mondo - gestire la situazione
             pass
@@ -233,23 +214,17 @@ class Eukaryota:
         pass
 
     def _performinternaltasks(self):
-        # controllo se l'età è multipla di 10 per consumare in ogni caso
+        # controllo se l'età è multipla di BMRTICK per consumare in ogni caso
         if self.age % self.BMRTICK == 0:
             d = self.age // self.DUPTIME
-            self.burnenergy(1 + (1 * d))
+            to_burn = 1 + (1 * d)
             # 1 + (1 * d): l'energia viene scalata in quantità crescente
-            # in funzione delle volte in cui l'organismo si è duplicato
-
-        # controllo se la eta' e' multipla di self.DUPTIME e il cibo disponibile
-        # e' maggiore di self.MINENERGYFORDUP
-        if (self.age % self.DUPTIME == 0) & (self.energy > self.MINENERGYFORDUP):
-            # è tempo di duplicarsi!
-            # vedere come gestire la cosa.
-            # emetto qualcosa che lo segnala al mondo esterno?
-            # direi di sì ma c'è da vedere come fare
-            self.dup = 1
-            self.burnenergy(15)  # tolgo 15 punti di energia alla duplicazione
-            self.duplicate_callback(self.x, self.y)
-            # print("Duplicate @" + str(self.age) + " tick.")
+            if (self.age % self.DUPTIME == 0) & (self.energy > self.MINENERGYFORDUP):
+                # controllo se la eta' e' multipla di self.DUPTIME e il cibo disponibile
+                # e' maggiore di self.MINENERGYFORDUP
+                to_burn += 15
+                self.duplicate_callback(self.x, self.y)
+                self.dup = 1
+            self.burnenergy(to_burn)
 
         self.move()
