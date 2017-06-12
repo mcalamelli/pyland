@@ -204,9 +204,6 @@ if args.build is True:
 
 #dump()
 
-for c in creatures:
-    print(c)
-
 if args.save is True:
     del drw
 # https://pymotw.com/2/threading/index.html#module-threading
