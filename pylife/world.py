@@ -161,7 +161,6 @@ for c_i in range(0, CREATURES):
     while not addcreature(c_x, c_y):
         c_x, c_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
 
-
 print("Numero di creature: ", len(creatures))
 print("Cibo disponibile: ", FOOD)
 print("Ticks: ", TICKS)
@@ -177,7 +176,6 @@ for i in range(TICKS):
             frame.delay = 5
             wand.sequence.append(frame)
         os.remove(img_path) # funziona, vedere come gestire la cosa
-
 
 if args.build is True:
     # crearo la gif animata
@@ -200,7 +198,6 @@ if args.build is True:
     #         os.remove(img_folder + "/" + str(bmp) + ".bmp")
     print("Salvataggio sequenza...")
     wand.save(filename=img_folder + "/world.gif")
-
 
 #dump()
 
