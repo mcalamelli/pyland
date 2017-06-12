@@ -143,14 +143,6 @@ class Eukaryota:
         return (self.energy == 0) | (self.age > self.MAXAGE)
 
 
-    def dupok(self):
-        """
-        Resetta la variabile di controllo della duplicazione
-        (duplicazione avvenuta)
-        """
-        self.dup = 0
-
-
     def move(self):
         """
         Muove l'entità nella direzione specificata
