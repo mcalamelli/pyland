@@ -199,7 +199,7 @@ class Eukaryota:
             self.energy = 0
         else:
             self.energy -= x
-        print("[" + str(self) + "] Energy: " + str(self.energy) + " Tick: " + str(self.age))
+        # print("[" + str(self) + "] Energy: " + str(self.energy) + " Tick: " + str(self.age))
 
 
     def my_move_cb(self):
