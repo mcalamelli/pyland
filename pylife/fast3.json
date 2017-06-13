@@ -1,0 +1,9 @@
+{
+    "creature":[{
+        "age": 10000,
+        "bmrtick": 2,
+        "energy": 100,
+        "duptime": 80,
+        "minenergyfordup": 30
+    }]
+}
