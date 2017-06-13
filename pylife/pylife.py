@@ -176,6 +176,15 @@ class Eukaryota:
             self.x = t_x
             self.y = t_y
             self.move_callback(self.x, self.y, self.prev_x, self.prev_y)
+        elif pos_status == 1:
+            # la posizione è occupata da una creatura morta
+            # la considero come valida, mangio il cibo e ci vado
+            self.eat(15) # considero una creatura morta = 15 punti energia
+            self.prev_x = self.x
+            self.prev_y = self.y
+            self.x = t_x
+            self.y = t_y
+            self.move_callback(self.x, self.y, self.prev_x, self.prev_y)
         else:
             # la posizione è vuota, ci vado
             self.prev_x = self.x

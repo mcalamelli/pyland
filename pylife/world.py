@@ -105,9 +105,12 @@ def checkplace(x, y):
     elif places[x][y] == 9:
         # posizione occupata da cibo, valida
         return 0
+    elif places[x][y] == 8:
+        # posizione occupata da cibo, valida
+        return 1
     else:
         # posizione libera
-        return 1  # return True
+        return 2  # return True
 
 def move(x, y, prev_x, prev_y):
     places[prev_x][prev_y] = 0
@@ -124,7 +127,7 @@ def addfood(x, y):
         return False
 
 def die(o):
-    places[o.x][o.y] = 0
+    places[o.x][o.y] = 8
     drawpoint(o.x, o.y, "DeepPink")
     creatures.remove(o)
 
