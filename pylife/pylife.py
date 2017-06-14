@@ -1,17 +1,20 @@
 # pylint: disable=locally-disabled,missing-docstring,invalid-name,line-too-long
 # -*- coding: utf-8 -*-
 from random import randrange
-from threading import Thread
+#import threading
+import time
 
 
-class Eukaryota(Thread):
+#class Eukaryota(threading.Thread):
+class Eukaryota():
     """Base creature for pyLife"""
 
 
     def __init__(self, x, y,
                  check_pos_cb, move_cb, die_cb, duplicate_cb,
                  energy, bmrtick, age, minenergyfordup, duptime):
-        Thread.__init__(self)
+        #threading.Thread.__init__(self)
+        #self.event = threading.Event()
         self._age = 0  # l'età iniziale è 0
         self._x = x  # la X della posizione iniziale nel mondo
         self._prev_x = x  # la X della posizione precedente
@@ -47,6 +50,7 @@ class Eukaryota(Thread):
 
     def run(self):
         self.tick()
+        time.sleep(1)
 
     @property
     def prev_x(self):
