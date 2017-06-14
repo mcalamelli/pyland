@@ -53,6 +53,7 @@ def move(x, y, prev_x, prev_y):
 def die(o):
     places[o.x][o.y] = 8
     drawpoint(o.x, o.y, "DeepPink")
+    #o.event.set()
     creatures.remove(o)
 
 
@@ -136,7 +137,7 @@ C = tkinter.Canvas(top, bg="black", height=XSIZE, width=YSIZE)
 def do_tick():
     for creature in creatures:
         creature.tick()
-    top.after(10, do_tick)
+    top.after(2, do_tick)
 
 creatures = []
 places = [[0 for x in range(XSIZE)] for y in range(YSIZE)]
