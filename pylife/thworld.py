@@ -129,7 +129,6 @@ def addfood(x, y):
 def die(o):
     places[o.x][o.y] = 8
     drawpoint(o.x, o.y, "DeepPink")
-    o.event.set()
     creatures.remove(o)
 
 def duplicate(x, y):
