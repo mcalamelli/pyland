@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 from random import randrange
 #import threading
-import time
 
 
 #class Eukaryota(threading.Thread):
