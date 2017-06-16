@@ -25,6 +25,7 @@ class Eukaryota():
         self.MAXAGE = age
         self.MINENERGYFORDUP = minenergyfordup
         self.DUPTIME = duptime
+        self._tkid = None
 
         if check_pos_cb is None:
             self.check_position_callback = self.my_pos_cb
@@ -47,6 +48,17 @@ class Eukaryota():
     def run(self):
         self.tick()
         #time.sleep(1)
+
+    @property
+    def tkid(self):
+        """
+        Imposta oppure ottiene l'ID Tk
+        """
+        return self._tkid
+
+    @tkid.setter
+    def tkid(self, x):
+        self._tkid = x
 
     @property
     def prev_x(self):
@@ -181,6 +193,7 @@ class Eukaryota():
             self.prev_y = self.y
             self.x = t_x
             self.y = t_y
+            #self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
             self.move_callback(self.x, self.y, self.prev_x, self.prev_y)
         elif pos_status == 1:
             # la posizione è occupata da una creatura morta
@@ -190,6 +203,7 @@ class Eukaryota():
             self.prev_y = self.y
             self.x = t_x
             self.y = t_y
+            #self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
             self.move_callback(self.x, self.y, self.prev_x, self.prev_y)
         else:
             # la posizione è vuota, ci vado
@@ -197,6 +211,7 @@ class Eukaryota():
             self.prev_y = self.y
             self.x = t_x
             self.y = t_y
+            #self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
             self.move_callback(self.x, self.y, self.prev_x, self.prev_y)
 
 

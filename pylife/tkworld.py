@@ -39,15 +39,16 @@ def addfood(x, y):
 
 def drawpoint(x, y, color):
     #drw.point((x, y), fill=color)
-    C.create_oval(x, y, x, y, fill=color)
-    #pass
+    return C.create_oval(x, y, x, y, fill=color)
 
 
+#def move(x, y, prev_x, prev_y, tkid):
 def move(x, y, prev_x, prev_y):
     places[prev_x][prev_y] = 0
     places[x][y] = 1
     drawpoint(prev_x, prev_y, "black")
     drawpoint(x, y, "DodgerBlue")
+    #C.move(tkid, x - prev_x, y - prev_y)
 
 
 def die(o):
@@ -68,8 +69,9 @@ def addcreature(x, y):
     if checkplace(x, y):
         places[x][y] = 1
         #creatures.append(Eukaryota(x, y, checkplace, move, die, duplicate))
-        creatures.append(Eukaryota(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0]))
-        drawpoint(x, y, "DodgerBlue")
+        c = Eukaryota(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0])
+        creatures.append(c)
+        c.tkid = drawpoint(x, y, "DodgerBlue")
         return True
     else:
         drawpoint(x, y, "red")
@@ -132,7 +134,7 @@ TICKS = args.ticks
 creature_data = json.load(args.inputfile)
 
 top = tkinter.Tk()
-C = tkinter.Canvas(top, bg="black", height=XSIZE, width=YSIZE)
+C = tkinter.Canvas(top, bg="black", width=XSIZE, height=YSIZE + 30)
 
 def do_tick():
     for creature in creatures:
