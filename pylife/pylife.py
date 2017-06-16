@@ -31,17 +31,14 @@ class Eukaryota():
             self.check_position_callback = self.my_pos_cb
         else:
             self.check_position_callback = check_pos_cb
-
         if move_cb is None:
             self.move_callback = self.my_move_cb
         else:
             self.move_callback = move_cb
-
         if die_cb is None:
             self.die_callback = self.my_die_cb
         else:
             self.die_callback = die_cb
-
         if duplicate_cb is None:
             self.duplicate_callback = self.my_duplicate_cb
         else:
@@ -50,12 +47,12 @@ class Eukaryota():
 
     def run(self):
         self.tick()
-        time.sleep(1)
+        #time.sleep(1)
 
     @property
     def prev_x(self):
         """
-        Imposta oppure ottiene il valore di posizione x precedente
+        Imposta oppure ottiene il valore della posizione x precedente
         """
         return self._prev_x
 
@@ -66,7 +63,7 @@ class Eukaryota():
     @property
     def prev_y(self):
         """
-        Imposta oppure ottiene il valore di posizione y precedente
+        Imposta oppure ottiene il valore della posizione y precedente
         """
         return self._prev_y
 
@@ -88,7 +85,7 @@ class Eukaryota():
     @property
     def x(self):
         """
-        Imposta oppure ottiene il valore di posizione x
+        Imposta oppure ottiene il valore della posizione x
         """
         return self._x
 
@@ -99,7 +96,7 @@ class Eukaryota():
     @property
     def y(self):
         """
-        Imposta oppure ottiene il valore di posizione y
+        Imposta oppure ottiene il valore della posizione y
         """
         return self._y
 
