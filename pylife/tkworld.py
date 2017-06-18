@@ -11,11 +11,11 @@ from pylife import Eukaryota
 def checkplace(x, y):
     if (x >= XSIZE - 1) or (y >= YSIZE - 1) or (x <= 0) or (y <= 0):
         # fuori dai confini del mondo, non valida
-        drawpoint(x, y, "red")
+        #drawpoint(x, y, "red")
         return -1  # return False
     elif places[x][y] == 1:
         # posizione già occupata, non valida
-        drawpoint(x, y, "red")
+        #drawpoint(x, y, "red")
         return -1  # return False
     elif places[x][y] == 9:
         # posizione occupata da cibo, valida
@@ -39,23 +39,24 @@ def addfood(x, y):
 
 def drawpoint(x, y, color):
     #drw.point((x, y), fill=color)
-    return C.create_oval(x, y, x, y, fill=color)
+    return tc.create_oval(x, y, x, y, fill=color)
 
 
-#def move(x, y, prev_x, prev_y, tkid):
-def move(x, y, prev_x, prev_y):
+#def move(x, y, prev_x, prev_y):
+def move(x, y, prev_x, prev_y, tkid):
     places[prev_x][prev_y] = 0
     places[x][y] = 1
-    drawpoint(prev_x, prev_y, "black")
-    drawpoint(x, y, "DodgerBlue")
-    #C.move(tkid, x - prev_x, y - prev_y)
+    #drawpoint(prev_x, prev_y, "black")
+    #drawpoint(x, y, "DodgerBlue")
+    tc.move(tkid, x - prev_x, y - prev_y)
 
 
-def die(o):
+def die(o, tkid):
     places[o.x][o.y] = 8
     drawpoint(o.x, o.y, "DeepPink")
-    #o.event.set()
     creatures.remove(o)
+    tc.delete(tkid)
+    tc.itemconfigure(c_text, text="Elementi : " + str(len(creatures)))
 
 
 def duplicate(x, y):
@@ -68,13 +69,13 @@ def duplicate(x, y):
 def addcreature(x, y):
     if checkplace(x, y):
         places[x][y] = 1
-        #creatures.append(Eukaryota(x, y, checkplace, move, die, duplicate))
         c = Eukaryota(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0])
         creatures.append(c)
         c.tkid = drawpoint(x, y, "DodgerBlue")
+        tc.itemconfigure(c_text, text="Creature: " + str(len(creatures)))
         return True
     else:
-        drawpoint(x, y, "red")
+        #drawpoint(x, y, "red")
         return False
 
 
@@ -134,12 +135,14 @@ TICKS = args.ticks
 creature_data = json.load(args.inputfile)
 
 top = tkinter.Tk()
-C = tkinter.Canvas(top, bg="black", width=XSIZE, height=YSIZE + 30)
+tc = tkinter.Canvas(top, bg="black", width=XSIZE, height=YSIZE + 30)
+tc.pack()
+c_text = tc.create_text(10, YSIZE + 15, text="Creature: ", fill="white", anchor="nw")
 
 def do_tick():
     for creature in creatures:
         creature.tick()
-    top.after(2, do_tick)
+    top.after(10, do_tick)
 
 creatures = []
 places = [[0 for x in range(XSIZE)] for y in range(YSIZE)]
@@ -157,6 +160,5 @@ for c_i in range(0, CREATURES):
 #coord = 10, 50, 240, 210
 #arc = C.create_arc(coord, start=0, extent=150, fill="red")
 
-C.pack()
-top.after(1, do_tick)
+top.after(10, do_tick)
 top.mainloop()

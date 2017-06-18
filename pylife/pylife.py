@@ -150,7 +150,7 @@ class Eukaryota():
             self.age += 1  # incremento l'età della creatura
             self._performinternaltasks()
         else:
-            self.die_callback(self)
+            self.die_callback(self, self.tkid)
 
 
     def isdead(self):
@@ -193,8 +193,8 @@ class Eukaryota():
             self.prev_y = self.y
             self.x = t_x
             self.y = t_y
-            #self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
-            self.move_callback(self.x, self.y, self.prev_x, self.prev_y)
+            self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
+            #self.move_callback(self.x, self.y, self.prev_x, self.prev_y)
         elif pos_status == 1:
             # la posizione è occupata da una creatura morta
             # la considero come valida, mangio il cibo e ci vado
@@ -203,16 +203,16 @@ class Eukaryota():
             self.prev_y = self.y
             self.x = t_x
             self.y = t_y
-            #self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
-            self.move_callback(self.x, self.y, self.prev_x, self.prev_y)
+            self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
+            #self.move_callback(self.x, self.y, self.prev_x, self.prev_y)
         else:
             # la posizione è vuota, ci vado
             self.prev_x = self.x
             self.prev_y = self.y
             self.x = t_x
             self.y = t_y
-            #self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
-            self.move_callback(self.x, self.y, self.prev_x, self.prev_y)
+            self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
+            #self.move_callback(self.x, self.y, self.prev_x, self.prev_y)
 
 
     def burnenergy(self, x=1):
