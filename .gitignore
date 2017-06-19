@@ -1,5 +1,6 @@
 __pycache__/*
 .vscode/*
+pylife/.vscode/*
 pylife/__pycache__/*
 pylife/[0-9]*/
 debug*.txt
