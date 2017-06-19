@@ -5,7 +5,7 @@ import json
 import argparse
 import tkinter
 import tkinter.messagebox
-from pylife import Eukaryota
+from Eukaryota import Eukaryota
 
 
 def checkplace(x, y):

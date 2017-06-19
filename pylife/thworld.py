@@ -16,7 +16,7 @@ import argparse
 import json
 from PIL import Image, ImageDraw
 from wand.image import Image as WImage
-from pylife import Eukaryota
+from Eukaryota import Eukaryota
 
 
 parser = argparse.ArgumentParser()
