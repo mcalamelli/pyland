@@ -41,9 +41,6 @@ class Eukaryota():
             self.duplicate_callback = duplicate_cb
 
 
-    def run(self):
-        self.tick()
-
     @property
     def tkid(self):
         """
