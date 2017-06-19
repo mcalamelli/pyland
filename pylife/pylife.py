@@ -1,10 +1,8 @@
 # pylint: disable=locally-disabled,missing-docstring,invalid-name,line-too-long
 # -*- coding: utf-8 -*-
 from random import randrange
-#import threading
 
 
-#class Eukaryota(threading.Thread):
 class Eukaryota():
     """Base creature for pyLife"""
 
@@ -12,8 +10,6 @@ class Eukaryota():
     def __init__(self, x, y,
                  check_pos_cb, move_cb, die_cb, duplicate_cb,
                  energy, bmrtick, age, minenergyfordup, duptime):
-        #threading.Thread.__init__(self)
-        #self.event = threading.Event()
         self._age = 0  # l'età iniziale è 0
         self._x = x  # la X della posizione iniziale nel mondo
         self._prev_x = x  # la X della posizione precedente
@@ -47,7 +43,6 @@ class Eukaryota():
 
     def run(self):
         self.tick()
-        #time.sleep(1)
 
     @property
     def tkid(self):
@@ -194,7 +189,6 @@ class Eukaryota():
             self.x = t_x
             self.y = t_y
             self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
-            #self.move_callback(self.x, self.y, self.prev_x, self.prev_y)
         elif pos_status == 1:
             # la posizione è occupata da una creatura morta
             # la considero come valida, mangio il cibo e ci vado
@@ -204,7 +198,6 @@ class Eukaryota():
             self.x = t_x
             self.y = t_y
             self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
-            #self.move_callback(self.x, self.y, self.prev_x, self.prev_y)
         else:
             # la posizione è vuota, ci vado
             self.prev_x = self.x
@@ -212,7 +205,6 @@ class Eukaryota():
             self.x = t_x
             self.y = t_y
             self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
-            #self.move_callback(self.x, self.y, self.prev_x, self.prev_y)
 
 
     def burnenergy(self, x=1):
@@ -220,7 +212,6 @@ class Eukaryota():
             self.energy = 0
         else:
             self.energy -= x
-        # print("[" + str(self) + "] Energy: " + str(self.energy) + " Tick: " + str(self.age))
 
 
     def my_move_cb(self):
