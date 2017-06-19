@@ -31,7 +31,7 @@ def checkplace(x, y):
 def addfood(x, y):
     if checkplace(x, y):
         places[x][y] = 9
-        drawpoint(x, y, "yellow")
+        drawpoint(x, y, "Yellow")
         return True
     else:
         return False
@@ -48,6 +48,9 @@ def move(x, y, prev_x, prev_y, tkid):
     #drawpoint(prev_x, prev_y, "black")
     #drawpoint(x, y, "DodgerBlue")
     tc.move(tkid, x - prev_x, y - prev_y)
+    #blw = tc.find_below(tkid)
+    #if tc.itemcget(blw, "fill") == "Yellow":
+    #    print("Above (" + tc.type(tkid) + "): " + str(tc.bbox(tkid)) + ", Below (" + tc.type(blw) + "): " + str(tc.bbox(blw)))
 
 
 def die(o, tkid):
@@ -127,7 +130,7 @@ c_text = tc.create_text(10, YSIZE + 15, text="Creature: ", fill="white", anchor=
 def do_tick():
     for creature in creatures:
         creature.tick()
-    mtk.after(10, do_tick)
+    mtk.after(100, do_tick)
 
 creatures = []
 places = [[0 for x in range(XSIZE)] for y in range(YSIZE)]
@@ -142,5 +145,5 @@ for c_i in range(0, CREATURES):
     while not addcreature(c_x, c_y):
         c_x, c_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
 
-mtk.after(10, do_tick)
+mtk.after(100, do_tick)
 mtk.mainloop()
