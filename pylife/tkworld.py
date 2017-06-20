@@ -50,7 +50,7 @@ def move(x, y, prev_x, prev_y, tkid):
     tc.move(tkid, x - prev_x, y - prev_y)
     #blw = tc.find_below(tkid)
     #if tc.itemcget(blw, "fill") == "Yellow":
-    #    print("Above (" + tc.type(tkid) + "): " + str(tc.bbox(tkid)) + ", Below (" + tc.type(blw) + "): " + str(tc.bbox(blw)))
+    #    print("Above (" + tc.type(tkid) + "): " + str(tc.coords(tkid)) + ", Below (" + tc.type(blw) + "): " + str(tc.coords(blw)))
 
 
 def die(o, tkid):
