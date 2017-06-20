@@ -31,7 +31,8 @@ def checkplace(x, y):
 def addfood(x, y):
     if checkplace(x, y):
         places[x][y] = 9
-        drawpoint(x, y, "Yellow")
+        food = drawpoint(x, y, "Yellow")
+        tc.itemconfig(food, tags=(str(x) + "x" + str(y)))
         return True
     else:
         return False
@@ -44,6 +45,9 @@ def drawpoint(x, y, color):
 
 def move(x, y, prev_x, prev_y, tkid):
     places[prev_x][prev_y] = 0
+    if places[x][y] == 9:
+        #print("Mangio cibo da 30pt")
+        tc.delete(tc.find_withtag(str(x) + "x" + str(y)))
     places[x][y] = 1
     #drawpoint(prev_x, prev_y, "black")
     #drawpoint(x, y, "DodgerBlue")
