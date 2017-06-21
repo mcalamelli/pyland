@@ -22,6 +22,7 @@ class Eukaryota():
         self.MINENERGYFORDUP = minenergyfordup
         self.DUPTIME = duptime
         self._tkid = None
+        self._color = "DodgerBlue"
 
         if check_pos_cb is None:
             self.check_position_callback = self.my_pos_cb
@@ -40,6 +41,17 @@ class Eukaryota():
         else:
             self.duplicate_callback = duplicate_cb
 
+
+    @property
+    def color(self):
+        """
+        Imposta oppure ottiene il colore della creatura
+        """
+        return self._color
+
+    @color.setter
+    def color(self, x):
+        self._color = x
 
     @property
     def tkid(self):
