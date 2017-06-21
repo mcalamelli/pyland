@@ -16,7 +16,7 @@ import argparse
 import json
 from PIL import Image, ImageDraw
 from wand.image import Image as WImage
-from Eukaryota import Eukaryota
+from a0 import a0
 
 
 parser = argparse.ArgumentParser()
@@ -143,7 +143,7 @@ def addcreature(x, y):
     if checkplace(x, y):
         places[x][y] = 1
         #creatures.append(Eukaryota(x, y, checkplace, move, die, duplicate))
-        creatures.append(Eukaryota(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0]))
+        creatures.append(a0(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0]))
         drawpoint(x, y, "DodgerBlue")
         return True
     else:
