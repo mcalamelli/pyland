@@ -6,7 +6,7 @@ import argparse
 import tkinter
 import tkinter.messagebox
 from a0 import a0
-
+from a1 import a1
 
 def checkplace(x, y):
     if (x >= XSIZE - 1) or (y >= YSIZE - 1) or (x <= 0) or (y <= 0):
@@ -31,7 +31,7 @@ def checkplace(x, y):
 def addfood(x, y):
     if checkplace(x, y):
         places[x][y] = 9
-        food = drawpoint(x, y, "Yellow")
+        food = drawpoint(x, y, "DimGrey")
         tc.itemconfig(food, tags=(str(x) + "x" + str(y)))
         return True
     else:
@@ -55,7 +55,7 @@ def move(x, y, prev_x, prev_y, tkid):
 
 def die(o, tkid):
     places[o.x][o.y] = 8
-    body = drawpoint(o.x, o.y, "DeepPink")
+    body = drawpoint(o.x, o.y, "DimGrey")
     tc.itemconfig(body, tags=(str(o.x) + "x" + str(o.y)))
     creatures.remove(o)
     tc.delete(tkid)
@@ -72,7 +72,10 @@ def duplicate(x, y):
 def addcreature(x, y):
     if checkplace(x, y):
         places[x][y] = 1
-        c = a0(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0])
+        if not x % 2 == 0:
+            c = a0(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0])
+        else:
+            c = a1(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0])
         creatures.append(c)
         #c.tkid = drawpoint(x, y, "DodgerBlue")
         c.tkid = drawpoint(x, y, c.color)
