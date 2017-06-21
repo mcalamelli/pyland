@@ -8,24 +8,26 @@ import tkinter.messagebox
 from a0 import a0
 from a1 import a1
 
+c_type = None
+
 def checkplace(x, y):
     if (x >= XSIZE - 1) or (y >= YSIZE - 1) or (x <= 0) or (y <= 0):
         # fuori dai confini del mondo, non valida
         #drawpoint(x, y, "red")
-        return -1
+        return (-2, (XSIZE, YSIZE))
     elif places[x][y] == 1:
         # posizione già occupata, non valida
         #drawpoint(x, y, "red")
-        return -1
+        return (-1, (None, None))
     elif places[x][y] == 9:
         # posizione occupata da cibo, valida
-        return 0
+        return (0, (None, None))
     elif places[x][y] == 8:
         # posizione occupata da cibo, valida
-        return 1
+        return (1, (None, None))
     else:
         # posizione libera
-        return 2
+        return (2, (None, None))
 
 
 def addfood(x, y):
@@ -62,20 +64,21 @@ def die(o, tkid):
     tc.itemconfigure(c_text, text="Creature: " + str(len(creatures)))
 
 
-def duplicate(x, y):
+def duplicate(x, y, z):
     t_x = x
     t_y = y
-    while not addcreature(t_x, t_y):
+    while not addcreature(t_x, t_y, z): # da sistemare
         t_x, t_y = randint(t_x - 3, t_x + 3), randint(t_y - 3, t_y + 3)
 
 
-def addcreature(x, y):
+def addcreature(x, y, z):
     if checkplace(x, y):
         places[x][y] = 1
-        if not x % 2 == 0:
-            c = a0(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0])
-        else:
-            c = a1(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0])
+        #if not x % 2 == 0:
+        #    c = a0(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0])
+        #else:
+        #    c = a1(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0])
+        c = z(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0])
         creatures.append(c)
         #c.tkid = drawpoint(x, y, "DodgerBlue")
         c.tkid = drawpoint(x, y, c.color)
@@ -147,8 +150,16 @@ for f_i in range(0, FOOD):
 
 for c_i in range(0, CREATURES):
     c_x, c_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
-    while not addcreature(c_x, c_y):
+    if c_x % 2 == 0:
+        c_type = a0
+    else:
+        c_type = a1
+    while not addcreature(c_x, c_y, c_type):
         c_x, c_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
+        if c_x % 2 == 0:
+            c_type = a0
+        else:
+            c_type = a1
 
 mtk.after(100, do_tick)
 mtk.mainloop()

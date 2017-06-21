@@ -11,6 +11,11 @@ class a1(a0):
     color = "LawnGreen"
     direction = None
 
+
+    @property
+    def c_type(self):
+        return a1
+
     def move(self):
         t_x = self.x
         t_y = self.y
@@ -32,11 +37,23 @@ class a1(a0):
             t_y += 1
 
         pos_status = self.check_position_callback(t_x, t_y)
-        if pos_status == -1:
-            # la posizione è occupata da una altra creatura oppure è fuori
-            # dai limiti del mondo - gestire la situazione
+        if pos_status[0] == -2:
+            # la posizione è fuori dai confini del mondo
+            # gestire la situazione
+            #mx, my = pos_status[1]
+            if t_x <= 0:
+                # print(self.direction)
+                if self.direction == 3:
+                    self.direction = 2
+                    self.move()
+                elif self.direction == 0:
+                    self.direction = 1
+                    self.move()
+        elif pos_status[0] == -1:
+            # la posizione è occupata da una altra creatura
+            # gestire la situazione
             pass
-        elif pos_status == 0:
+        elif pos_status[0] == 0:
             # la posizione è occupata da cibo
             # la considero come valida, mangio il cibo e ci vado
             self.eat(30) # considero una unità di cibo = 30 punti energia
@@ -45,7 +62,7 @@ class a1(a0):
             self.x = t_x
             self.y = t_y
             self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
-        elif pos_status == 1:
+        elif pos_status[0] == 1:
             # la posizione è occupata da una creatura morta
             # la considero come valida, mangio il cibo e ci vado
             self.eat(15) # considero una creatura morta = 15 punti energia
