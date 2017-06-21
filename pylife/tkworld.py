@@ -40,7 +40,7 @@ def addfood(x, y):
 
 def drawpoint(x, y, color):
     #drw.point((x, y), fill=color)
-    return tc.create_oval(x, y, x, y, fill=color)
+    return tc.create_oval(x - 2, y - 2, x + 2, y + 2, fill=color)
 
 
 def move(x, y, prev_x, prev_y, tkid):
@@ -129,7 +129,7 @@ creature_data = json.load(args.inputfile)
 
 mtk = tkinter.Tk()
 tc = tkinter.Canvas(mtk, bg="black", width=XSIZE, height=YSIZE + 30)
-tc.pack()
+tc.pack(expand=1)
 c_text = tc.create_text(10, YSIZE + 15, text="Creature: ", fill="white", anchor="nw")
 
 def do_tick():
