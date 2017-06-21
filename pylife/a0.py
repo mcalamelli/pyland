@@ -3,7 +3,7 @@
 from random import randrange
 
 
-class Eukaryota():
+class a0():
     """Base creature for pyLife"""
 
 

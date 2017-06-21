@@ -5,7 +5,7 @@ import json
 import argparse
 import tkinter
 import tkinter.messagebox
-from Eukaryota import Eukaryota
+from a0 import a0
 
 
 def checkplace(x, y):
@@ -72,7 +72,7 @@ def duplicate(x, y):
 def addcreature(x, y):
     if checkplace(x, y):
         places[x][y] = 1
-        c = Eukaryota(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0])
+        c = a0(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0])
         creatures.append(c)
         #c.tkid = drawpoint(x, y, "DodgerBlue")
         c.tkid = drawpoint(x, y, c.color)
