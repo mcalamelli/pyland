@@ -45,21 +45,18 @@ def drawpoint(x, y, color):
 
 def move(x, y, prev_x, prev_y, tkid):
     places[prev_x][prev_y] = 0
-    if places[x][y] == 9:
-        #print("Mangio cibo da 30pt")
+    if (places[x][y] == 9) or (places[x][y] == 8):
         tc.delete(tc.find_withtag(str(x) + "x" + str(y)))
     places[x][y] = 1
     #drawpoint(prev_x, prev_y, "black")
     #drawpoint(x, y, "DodgerBlue")
     tc.move(tkid, x - prev_x, y - prev_y)
-    #blw = tc.find_below(tkid)
-    #if tc.itemcget(blw, "fill") == "Yellow":
-    #    print("Above (" + tc.type(tkid) + "): " + str(tc.coords(tkid)) + ", Below (" + tc.type(blw) + "): " + str(tc.coords(blw)))
 
 
 def die(o, tkid):
     places[o.x][o.y] = 8
-    drawpoint(o.x, o.y, "DeepPink")
+    body = drawpoint(o.x, o.y, "DeepPink")
+    tc.itemconfig(body, tags=(str(o.x) + "x" + str(o.y)))
     creatures.remove(o)
     tc.delete(tkid)
     tc.itemconfigure(c_text, text="Creature: " + str(len(creatures)))
@@ -77,7 +74,8 @@ def addcreature(x, y):
         places[x][y] = 1
         c = Eukaryota(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0])
         creatures.append(c)
-        c.tkid = drawpoint(x, y, "DodgerBlue")
+        #c.tkid = drawpoint(x, y, "DodgerBlue")
+        c.tkid = drawpoint(x, y, c.color)
         tc.itemconfigure(c_text, text="Creature: " + str(len(creatures)))
         return True
     else:
