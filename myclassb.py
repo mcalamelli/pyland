@@ -1,17 +1,19 @@
 # pylint: disable=locally-disabled,missing-docstring,invalid-name
 # -*- coding: utf-8 -*-
+from myclassa import myclassa
 
-class myclass:
+class myclassb(myclassa):
 
-    def __init__(self, x=0):
-        self._myattr = x
+    def __init__(self, y=0):
+        self._myattry = y
+        super().__init__()
 
 
     @property
-    def myattr(self):
-        return self._myattr
+    def myattry(self):
+        return self._myattry
 
 
-    @myattr.setter
-    def myattr(self, x):
-        self._myattr = x
+    @myattry.setter
+    def myattry(self, y):
+        self._myattry = y
