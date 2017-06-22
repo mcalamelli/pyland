@@ -40,19 +40,37 @@ class a1(a0):
         if pos_status[0] == -2:
             # la posizione è fuori dai confini del mondo
             # gestire la situazione
-            #mx, my = pos_status[1]
+            mx, my = pos_status[1]
             if t_x <= 0:
-                # print(self.direction)
                 if self.direction == 3:
                     self.direction = 2
-                    self.move()
                 elif self.direction == 0:
                     self.direction = 1
-                    self.move()
+                self.move()
+            elif t_x >= mx - 1:
+                if self.direction == 2:
+                    self.direction = 3
+                elif self.direction == 1:
+                    self.direction = 0
+                self.move()
+            elif t_y <= 0:
+                if self.direction == 1:
+                    self.direction = 2
+                elif self.direction == 0:
+                    self.direction = 3
+                self.move()
+            elif t_y >= my - 1:
+                if self.direction == 2:
+                    self.direction = 1
+                elif self.direction == 3:
+                    self.direction = 0
+                self.move()
         elif pos_status[0] == -1:
             # la posizione è occupata da una altra creatura
             # gestire la situazione
-            pass
+            self.direction = None
+            self.move()
+            #pass
         elif pos_status[0] == 0:
             # la posizione è occupata da cibo
             # la considero come valida, mangio il cibo e ci vado
