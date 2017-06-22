@@ -1,5 +1,6 @@
 # pylint: disable=locally-disabled,missing-docstring,invalid-name,line-too-long
 # -*- coding: utf-8 -*-
+
 from random import randrange
 
 
