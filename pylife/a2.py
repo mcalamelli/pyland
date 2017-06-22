@@ -6,4 +6,15 @@ from a0 import a0
 
 
 class a2(a0):
-    pass
+    """Creatura che sente la posizione del cibo"""
+
+    color = "OrangeRed"
+    direction = None
+
+
+    @property
+    def c_type(self):
+        return a2
+
+    def move(self):
+        pass
