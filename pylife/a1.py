@@ -21,8 +21,7 @@ class a1(a0):
         t_y = self.y
 
         if self.direction is None:
-            self.direction = randrange(0, 4, 1)
-            # 0:NE 1:NO 2:SO 3:SE
+            self.direction = randrange(0, 4, 1) # 0:NE 1:NO 2:SO 3:SE
         if self.direction == 0:
             t_x -= 1
             t_y -= 1
@@ -46,31 +45,25 @@ class a1(a0):
                     self.direction = 2
                 elif self.direction == 0:
                     self.direction = 1
-                self.move()
             elif t_x >= mx - 1:
                 if self.direction == 2:
                     self.direction = 3
                 elif self.direction == 1:
                     self.direction = 0
-                self.move()
             elif t_y <= 0:
                 if self.direction == 1:
                     self.direction = 2
                 elif self.direction == 0:
                     self.direction = 3
-                self.move()
             elif t_y >= my - 1:
                 if self.direction == 2:
                     self.direction = 1
                 elif self.direction == 3:
                     self.direction = 0
-                self.move()
         elif pos_status[0] == -1:
             # la posizione è occupata da una altra creatura
             # gestire la situazione
             self.direction = None
-            self.move()
-            #pass
         elif pos_status[0] == 0:
             # la posizione è occupata da cibo
             # la considero come valida, mangio il cibo e ci vado
