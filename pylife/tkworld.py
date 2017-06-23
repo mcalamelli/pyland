@@ -7,6 +7,7 @@ import tkinter
 import tkinter.messagebox
 from a0 import a0
 from a1 import a1
+from a2 import a2
 
 c_type = None
 
@@ -74,10 +75,10 @@ def duplicate(x, y, z):
 def addcreature(x, y, z):
     if checkplace(x, y):
         places[x][y] = 1
-        #if not x % 2 == 0:
-        #    c = a0(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0])
+        #if z == a2:
+        #    c = z(scanfood_cb=scanfood)
         #else:
-        #    c = a1(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0])
+        #    c = z(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0])
         c = z(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0])
         creatures.append(c)
         #c.tkid = drawpoint(x, y, "DodgerBlue")
@@ -86,6 +87,19 @@ def addcreature(x, y, z):
         return True
     else:
         return False
+
+
+def scanfood(x, y, size):
+    jumps = 0
+    position = []
+    for i in range(x - size, x + size + 1):
+        for j in range(y - size, y + size + 1):
+            if (places[i][j] == 8) or (places[i][j] == 9):
+                if ((abs(x - i) + abs(y - j)) < jumps) or (jumps == 0):
+                    jumps = abs(x - i) + abs(y - j)
+                    position.clear()
+                    position.append((i, j))
+    return position
 
 
 parser = argparse.ArgumentParser()
@@ -152,14 +166,18 @@ for c_i in range(0, CREATURES):
     c_x, c_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
     if c_x % 2 == 0:
         c_type = a0
-    else:
+    elif c_x % 3 == 0:
         c_type = a1
+    else:
+        c_type = a2
     while not addcreature(c_x, c_y, c_type):
         c_x, c_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
         if c_x % 2 == 0:
             c_type = a0
-        else:
+        elif c_x % 3 == 0:
             c_type = a1
+        else:
+            c_type = a2
 
 mtk.after(100, do_tick)
 mtk.mainloop()
