@@ -7,7 +7,6 @@ from random import randrange
 class a0():
     """Base creature for pyLife"""
 
-
     def __init__(self, x, y,
                  check_pos_cb, move_cb, die_cb, duplicate_cb,
                  energy, bmrtick, age, minenergyfordup, duptime):
@@ -17,7 +16,7 @@ class a0():
         self._y = y  # la Y della posizione iniziale nel mondo
         self._prev_y = y  # la Y della posizione precedente
         self._energy = energy  # partiamo con il pieno di energia
-        self._dup = 0 # variabile di controllo della duplicazione
+        self._dup = 0  # variabile di controllo della duplicazione
         self.BMRTICK = bmrtick
         self.MAXAGE = age
         self.MINENERGYFORDUP = minenergyfordup
@@ -149,10 +148,8 @@ class a0():
     def age(self, x):
         self._age = x
 
-
     def eat(self, x):
         self.energy += x
-
 
     def tick(self):
         """
@@ -164,14 +161,12 @@ class a0():
         else:
             self.die_callback(self, self.tkid)
 
-
     def isdead(self):
         """
         Ritorna True se è finita l'energia oppure se si
         è raggiunta l'età massima
         """
         return (self.energy == 0) | (self.age > self.MAXAGE)
-
 
     def move(self):
         """
@@ -204,7 +199,7 @@ class a0():
         elif pos_status[0] == 0:
             # la posizione è occupata da cibo
             # la considero come valida, mangio il cibo e ci vado
-            self.eat(30) # considero una unità di cibo = 30 punti energia
+            self.eat(30)  # considero una unità di cibo = 30 punti energia
             self.prev_x = self.x
             self.prev_y = self.y
             self.x = t_x
@@ -213,7 +208,7 @@ class a0():
         elif pos_status[0] == 1:
             # la posizione è occupata da una creatura morta
             # la considero come valida, mangio il cibo e ci vado
-            self.eat(15) # considero una creatura morta = 15 punti energia
+            self.eat(15)  # considero una creatura morta = 15 punti energia
             self.prev_x = self.x
             self.prev_y = self.y
             self.x = t_x
@@ -227,13 +222,11 @@ class a0():
             self.y = t_y
             self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
 
-
     def burnenergy(self, x=1):
         if self.energy - x <= 0:
             self.energy = 0
         else:
             self.energy -= x
-
 
     def my_move_cb(self):
         pass
@@ -250,8 +243,8 @@ class a0():
     def _performinternaltasks(self):
         # controllo se l'età è multipla di BMRTICK per consumare in ogni caso
         if self.age % self.BMRTICK == 0:
-            #d = self.age // self.DUPTIME
-            #to_burn = 1 + (1 * d)
+            # d = self.age // self.DUPTIME
+            # to_burn = 1 + (1 * d)
             # 1 + (1 * d): l'energia viene scalata in quantità crescente
             to_burn = 1
             if (self.age % self.DUPTIME == 0) & (self.energy > self.MINENERGYFORDUP):

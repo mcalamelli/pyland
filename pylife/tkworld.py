@@ -10,14 +10,15 @@ from a1 import a1
 
 c_type = None
 
+
 def checkplace(x, y):
     if (x >= XSIZE - 1) or (y >= YSIZE - 1) or (x <= 0) or (y <= 0):
         # fuori dai confini del mondo, non valida
-        #drawpoint(x, y, "red")
+        # drawpoint(x, y, "red")
         return (-2, (XSIZE, YSIZE))
     elif places[x][y] == 1:
         # posizione già occupata, non valida
-        #drawpoint(x, y, "red")
+        # drawpoint(x, y, "red")
         return (-1, (None, None))
     elif places[x][y] == 9:
         # posizione occupata da cibo, valida
@@ -41,7 +42,7 @@ def addfood(x, y):
 
 
 def drawpoint(x, y, color):
-    #drw.point((x, y), fill=color)
+    # drw.point((x, y), fill=color)
     return tc.create_oval(x - 2, y - 2, x + 2, y + 2, fill=color)
 
 
@@ -50,8 +51,8 @@ def move(x, y, prev_x, prev_y, tkid):
     if (places[x][y] == 9) or (places[x][y] == 8):
         tc.delete(tc.find_withtag(str(x) + "x" + str(y)))
     places[x][y] = 1
-    #drawpoint(prev_x, prev_y, "black")
-    #drawpoint(x, y, "DodgerBlue")
+    # drawpoint(prev_x, prev_y, "black")
+    # drawpoint(x, y, "DodgerBlue")
     tc.move(tkid, x - prev_x, y - prev_y)
 
 
@@ -67,20 +68,20 @@ def die(o, tkid):
 def duplicate(x, y, z):
     t_x = x
     t_y = y
-    while not addcreature(t_x, t_y, z): # da sistemare
+    while not addcreature(t_x, t_y, z):  # da sistemare
         t_x, t_y = randint(t_x - 3, t_x + 3), randint(t_y - 3, t_y + 3)
 
 
 def addcreature(x, y, z):
     if checkplace(x, y):
         places[x][y] = 1
-        #if not x % 2 == 0:
+        # if not x % 2 == 0:
         #    c = a0(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0])
-        #else:
+        # else:
         #    c = a1(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0])
         c = z(x, y, checkplace, move, die, duplicate, **creature_data["creature"][0])
         creatures.append(c)
-        #c.tkid = drawpoint(x, y, "DodgerBlue")
+        # c.tkid = drawpoint(x, y, "DodgerBlue")
         c.tkid = drawpoint(x, y, c.color)
         tc.itemconfigure(c_text, text="Creature: " + str(len(creatures)))
         return True
@@ -135,10 +136,12 @@ tc = tkinter.Canvas(mtk, bg="black", width=XSIZE, height=YSIZE + 30)
 tc.pack(expand=1)
 c_text = tc.create_text(10, YSIZE + 15, text="Creature: ", fill="white", anchor="nw")
 
+
 def do_tick():
     for creature in creatures:
         creature.tick()
     mtk.after(100, do_tick)
+
 
 creatures = []
 places = [[0 for x in range(XSIZE)] for y in range(YSIZE)]
