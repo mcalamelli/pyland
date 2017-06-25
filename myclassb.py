@@ -2,18 +2,17 @@
 # -*- coding: utf-8 -*-
 from myclassa import myclassa
 
+
 class myclassb(myclassa):
 
-    def __init__(self, y=0):
-        self._myattry = y
+    def __init__(self, z=0):
+        self._z = z
         super().__init__()
 
-
     @property
-    def myattry(self):
-        return self._myattry
+    def z(self):
+        return self._z
 
-
-    @myattry.setter
-    def myattry(self, y):
-        self._myattry = y
+    @z.setter
+    def z(self, z):
+        self._z = z
