@@ -7,6 +7,7 @@ import tkinter
 import tkinter.messagebox
 from a0 import a0
 from a1 import a1
+from a2 import a2
 
 c_type = None
 
@@ -89,6 +90,19 @@ def addcreature(x, y, z):
         return False
 
 
+def scanfood(x, y, size):
+    jumps = 0
+    position = []
+    for i in range(x - size, x + size + 1):
+        for j in range(y - size, y + size + 1):
+            if (places[i][j] == 8) or (places[i][j] == 9):
+                if ((abs(x - i) + abs(y - j)) < jumps) or (jumps == 0):
+                    jumps = abs(x - i) + abs(y - j)
+                    position.clear()
+                    position.append((i, j))
+    return position
+
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--xsize', '-x',
                     type=int, default=300,
@@ -155,14 +169,18 @@ for c_i in range(0, CREATURES):
     c_x, c_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
     if c_x % 2 == 0:
         c_type = a0
-    else:
+    elif c_x % 3 == 0:
         c_type = a1
+    else:
+        c_type = a2
     while not addcreature(c_x, c_y, c_type):
         c_x, c_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
         if c_x % 2 == 0:
             c_type = a0
-        else:
+        elif c_x % 3 == 0:
             c_type = a1
+        else:
+            c_type = a2
 
 mtk.after(100, do_tick)
 mtk.mainloop()
