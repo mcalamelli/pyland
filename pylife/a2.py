@@ -11,17 +11,6 @@ class a2(a0):
     color = "Orange"
     direction = None
 
-<<<<<<< HEAD
-=======
-    #def __init__(self, scanfood_cb=None):
-    #    if scanfood_cb is None:
-    ##        self.scanfood_callback = self.my_scanfood_cb
-    #    #super().__init__()
-
-    def my_scanfood_cb(self):
-        pass
-
->>>>>>> 23f0f507a9e86052cb7306c44323c3130376e8a3
     @property
     def c_type(self):
         return a2
