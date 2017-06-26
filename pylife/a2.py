@@ -11,6 +11,7 @@ class a2(a0):
     color = "Orange"
     direction = None
 
+
     @property
     def c_type(self):
         return a2

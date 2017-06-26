@@ -80,7 +80,7 @@ def addcreature(x, y, z):
         #    c = a0(x=x, y=y, pos_cb=checkpos, move_cb=move, die_cb=die, dup, **creature_data["creature"][0])
         # else:
         #    c = a1(x=x, y=y, pos_cb=checkpos, move_cb=move, die_cb=die, dup, **creature_data["creature"][0])
-        c = z(x=x, y=y, pos_cb=checkpos, move_cb=move, die_cb=die, dup_cb=dup, **creature_data["creature"][0])
+        c = z(x, y, pos_cb=checkpos, move_cb=move, die_cb=die, dup_cb=dup, scanfood_cb=scanfood, **c_data["creature"][0])
         creatures.append(c)
         # c.tkid = drawpoint(x, y, "DodgerBlue")
         c.tkid = drawpoint(x, y, c.color)
@@ -143,7 +143,7 @@ if args.food is None:
 else:
     FOOD = args.food
 TICKS = args.ticks
-creature_data = json.load(args.inputfile)
+c_data = json.load(args.inputfile)
 
 mtk = tkinter.Tk()
 tc = tkinter.Canvas(mtk, bg="black", width=XSIZE, height=YSIZE + 30)
