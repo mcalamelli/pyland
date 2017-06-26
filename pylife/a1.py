@@ -35,7 +35,7 @@ class a1(a0):
             t_x -= 1
             t_y += 1
 
-        pos_status = self.check_position_callback(t_x, t_y)
+        pos_status = self.pos_callback(t_x, t_y)
         if pos_status[0] == -2:
             # la posizione è fuori dai confini del mondo
             # gestire la situazione

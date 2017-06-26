@@ -8,7 +8,7 @@ class a0():
     """Base creature for pyLife"""
 
     def __init__(self, x, y,
-                 check_pos_cb, move_cb, die_cb, duplicate_cb,
+                 pos_cb, move_cb, die_cb, dup_cb,
                  energy, bmrtick, age, minenergyfordup, duptime):
         self._age = 0  # l'età iniziale è 0
         self._x = x  # la X della posizione iniziale nel mondo
@@ -25,10 +25,10 @@ class a0():
         self._color = "DodgerBlue"
         self._c_type = a0
 
-        if check_pos_cb is None:
-            self.check_position_callback = self.my_pos_cb
+        if pos_cb is None:
+            self.pos_callback = self.my_pos_cb
         else:
-            self.check_position_callback = check_pos_cb
+            self.pos_callback = pos_cb
         if move_cb is None:
             self.move_callback = self.my_move_cb
         else:
@@ -37,10 +37,10 @@ class a0():
             self.die_callback = self.my_die_cb
         else:
             self.die_callback = die_cb
-        if duplicate_cb is None:
-            self.duplicate_callback = self.my_duplicate_cb
+        if dup_cb is None:
+            self.dup_callback = self.my_dup_cb
         else:
-            self.duplicate_callback = duplicate_cb
+            self.dup_callback = dup_cb
 
     @property
     def c_type(self):
@@ -187,7 +187,7 @@ class a0():
         elif direction == 3:
             t_x -= 1
 
-        pos_status = self.check_position_callback(t_x, t_y)
+        pos_status = self.pos_callback(t_x, t_y)
         if pos_status[0] == -2:
             # la posizione è fuori dai confini del mondo
             # gestire la situazione
@@ -237,7 +237,7 @@ class a0():
     def my_die_cb(self):
         pass
 
-    def my_duplicate_cb(self):
+    def my_dup_cb(self):
         pass
 
     def _performinternaltasks(self):
@@ -251,7 +251,7 @@ class a0():
                 # controllo se la eta' e' multipla di self.DUPTIME e il cibo disponibile
                 # e' maggiore di self.MINENERGYFORDUP
                 to_burn += 15
-                self.duplicate_callback(self.x, self.y, self.c_type)
+                self.dup_callback(self.x, self.y, self.c_type)
                 self.dup = 1
             self.burnenergy(to_burn)
 
