@@ -35,8 +35,8 @@ def checkpos(x, y):
 def addfood(x, y):
     if checkpos(x, y):
         places[x][y] = 9
-        food = drawpoint(x, y, "DimGrey")
-        tc.itemconfig(food, tags=(str(x) + "x" + str(y)))
+        foodpoint = drawpoint(x, y, "DimGrey")
+        tc.itemconfig(foodpoint, tags=(str(x) + "x" + str(y)))
         return True
     else:
         return False
@@ -95,11 +95,13 @@ def food(x, y, size):
     position = []
     for i in range(x - size, x + size + 1):
         for j in range(y - size, y + size + 1):
-            if (places[i][j] == 8) or (places[i][j] == 9):
-                if ((abs(x - i) + abs(y - j)) < jumps) or (jumps == 0):
-                    jumps = abs(x - i) + abs(y - j)
-                    position.clear()
-                    position.append((i, j))
+            if (i >= 0) and (i < XSIZE) and (j >= 0) and (j < YSIZE):
+                if (places[i][j] == 8) or (places[i][j] == 9):
+                    if ((abs(x - i) + abs(y - j)) < jumps) or (jumps == 0):
+                        jumps = abs(x - i) + abs(y - j)
+                        position.clear()
+                        position.append((i, j))
+    print(position)
     return position
 
 
