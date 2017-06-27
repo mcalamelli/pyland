@@ -101,7 +101,7 @@ def food(x, y, size):
                         jumps = abs(x - i) + abs(y - j)
                         position.clear()
                         position.append((i, j))
-    print(position)
+    # print(position)
     return position
 
 
