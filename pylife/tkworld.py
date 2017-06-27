@@ -80,7 +80,7 @@ def addcreature(x, y, z):
         #    c = a0(x=x, y=y, pos_cb=checkpos, move_cb=move, die_cb=die, dup, **creature_data["creature"][0])
         # else:
         #    c = a1(x=x, y=y, pos_cb=checkpos, move_cb=move, die_cb=die, dup, **creature_data["creature"][0])
-        c = z(x, y, pos_cb=checkpos, move_cb=move, die_cb=die, dup_cb=dup, scanfood_cb=scanfood, **c_data["creature"][0])
+        c = z(x, y, pos_cb=checkpos, move_cb=move, die_cb=die, dup_cb=dup, food_cb=food, **c_data["creature"][0])
         creatures.append(c)
         # c.tkid = drawpoint(x, y, "DodgerBlue")
         c.tkid = drawpoint(x, y, c.color)
@@ -90,7 +90,7 @@ def addcreature(x, y, z):
         return False
 
 
-def scanfood(x, y, size):
+def food(x, y, size):
     jumps = 0
     position = []
     for i in range(x - size, x + size + 1):
