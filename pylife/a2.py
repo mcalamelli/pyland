@@ -10,6 +10,7 @@ class a2(a0):
 
     color = "Orange"
     direction = None
+    path_to_food = []
 
 
     @property
@@ -35,10 +36,15 @@ class a2(a0):
             t_x -= 1
             t_y += 1
 
-        found_food = self.food_callback(t_x, t_y, 3)
-        if found_food:
-            print("Found food")
+        food_pos = self.food_callback(t_x, t_y, 3)
+        if food_pos:
+            # È stato trovato del cibo vicino
+            print("Found food at " + str(food_pos) + ", position: " + str(t_x) + ", " + str(t_y))
+            # if abs(food_pos[0][0] - t_x) == abs(food_pos[0][1] - t_y):
+            #     # il cibo è in diagonale rispetto alla creatura
+            #
         else:
+            # Nessun cibo nell'area di scansione
             pos_status = self.pos_callback(t_x, t_y)
             if pos_status[0] == -2:
                 # la posizione è fuori dai confini del mondo
