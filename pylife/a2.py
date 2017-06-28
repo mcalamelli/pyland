@@ -39,10 +39,25 @@ class a2(a0):
         food_pos = self.food_callback(t_x, t_y, 3)
         if food_pos:
             # È stato trovato del cibo vicino
-            print("Found food at " + str(food_pos) + ", position: " + str(t_x) + ", " + str(t_y))
-            # if abs(food_pos[0][0] - t_x) == abs(food_pos[0][1] - t_y):
-            #     # il cibo è in diagonale rispetto alla creatura
-            #
+            f_x, f_y = food_pos[0]
+            # print("Found food at " + str(food_pos) + ", position: " + str(t_x) + ", " + str(t_y))
+            if abs(f_x - t_x) == abs(f_y - t_y):
+                # il cibo è in diagonale rispetto alla creatura
+                for i in range(1, 4):
+                    if f_x - t_x > 0:
+                        s_x = t_x + i
+                    else:
+                        s_x = t_x - i
+                    if f_y - t_y > 0:
+                        s_y = t_y + i
+                    else:
+                        s_y = t_y - i
+                    self.path_to_food.append((s_x, s_y))
+                print("### Path -> " + str(t_x) + "," + str(t_y) + " - " + str(self.path_to_food) + " - " + str(f_x) + "," + str(f_y) + " ###")
+            else:
+                # il cibo non è in diagonale
+                pass
+            self.path_to_food.clear()
         else:
             # Nessun cibo nell'area di scansione
             pos_status = self.pos_callback(t_x, t_y)
