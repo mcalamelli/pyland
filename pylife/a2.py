@@ -17,6 +17,33 @@ class a2(a0):
     def c_type(self):
         return a2
 
+
+    def build_path_to_food(self, x, y, sz):
+        t_x = self.x
+        t_y = self.y
+        food_position = self.food_callback(x, y, sz)
+        if food_position:
+            # È stato trovato del cibo vicino
+            f_x, f_y = food_position[0]
+            # print("Found food at " + str(food_pos) + ", position: " + str(t_x) + ", " + str(t_y))
+            if abs(f_x - t_x) == abs(f_y - t_y):
+                # il cibo è in diagonale rispetto alla creatura
+                for i in range(1, 4):
+                    if f_x - t_x > 0:
+                        s_x = t_x + i
+                    else:
+                        s_x = t_x - i
+                    if f_y - t_y > 0:
+                        s_y = t_y + i
+                    else:
+                        s_y = t_y - i
+                    self.path_to_food.append((s_x, s_y))
+                # print("### Path -> " + str(t_x) + "," + str(t_y) + " - " + str(self.path_to_food) + " - " + str(f_x) + "," + str(f_y) + " ###")
+            return True
+        else:
+            return False
+
+
     def move(self):
         t_x = self.x
         t_y = self.y
