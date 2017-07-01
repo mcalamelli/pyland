@@ -38,7 +38,6 @@ class a1(a0):
         pos_status = self.pos_callback(t_x, t_y)
         if pos_status[0] == -2:
             # la posizione è fuori dai confini del mondo
-            # gestire la situazione
             mx, my = pos_status[1]
             if t_x <= 0:
                 if self.direction == 3:
