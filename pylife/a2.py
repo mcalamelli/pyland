@@ -25,10 +25,10 @@ class a2(a0):
         if food_position:
             # È stato trovato del cibo vicino
             f_x, f_y = food_position[0]
-            # print("Found food at " + str(food_pos) + ", position: " + str(t_x) + ", " + str(t_y))
+            print("Found food at " + str(food_position) + ", position: " + str(t_x) + ", " + str(t_y))
             if abs(f_x - t_x) == abs(f_y - t_y):
                 # il cibo è in diagonale rispetto alla creatura
-                for i in range(1, 4):
+                for i in range(1, abs(f_x - t_x) + 1):
                     if f_x - t_x > 0:
                         s_x = t_x + i
                     else:
@@ -50,6 +50,7 @@ class a2(a0):
     def move(self):
         # t_x = self.x
         # t_y = self.y
+        # print("[D] len(self.path_to_food): " + str(len(self.path_to_food)))
 
         if len(self.path_to_food) > 0:
             # il percorso verso il cibo è già impostato
@@ -61,7 +62,7 @@ class a2(a0):
             t_x = self.x
             t_y = self.y
             # self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
-        elif self.build_path_to_food is True:
+        elif self.build_path_to_food(self.x, self.y, 3) is True:
             p_x, p_y = self.path_to_food.pop(0)
             self.prev_x = self.x
             self.prev_y = self.y
