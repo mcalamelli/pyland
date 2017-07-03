@@ -79,6 +79,7 @@ class a2(a0):
             t_y = self.y
             # self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
         elif self.build_path_to_food(self.x, self.y, 3) is True:
+            # BUG: IndexError: pop from empty list qui sotto
             p_x, p_y = self.path_to_food.pop(0)
             self.prev_x = self.x
             self.prev_y = self.y
