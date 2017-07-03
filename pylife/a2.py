@@ -42,14 +42,17 @@ class a2(a0):
                 return True
             else:
                 # il cibo non è in diagonale
-                print("Debug: " + str(range(1, abs(f_x - t_x) + 1)))
-                # BUG: se si arriva alla condizione range(1, 1) -> crash per variabile non assegnata
-                for i in range(1, abs(f_x - t_x) + 1):
-                    if f_x == max(f_x, t_x):
-                        tcx = t_x + i
-                    else:
-                        tcx = t_x - i
-                    self.path_to_food.append((tcx, t_y))
+                # print("Found food at " + str(food_position) + ", position: " + str(t_x) + ", " + str(t_y))
+                # print("Debug: " + str(range(1, abs(f_x - t_x) + 1)))
+                if f_x != t_x:
+                    for i in range(1, abs(f_x - t_x) + 1):
+                        if f_x == max(f_x, t_x):
+                            tcx = t_x + i
+                        else:
+                            tcx = t_x - i
+                        self.path_to_food.append((tcx, t_y))
+                else:
+                    tcx = t_x
                 for i in range(1, abs(f_y - t_y) + 1):
                     if f_y == max(f_y, t_y):
                         tcy = t_y + i
