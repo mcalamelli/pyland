@@ -25,7 +25,7 @@ class a2(a0):
         if food_position:
             # È stato trovato del cibo vicino
             f_x, f_y = food_position[0]
-            print("Found food at " + str(food_position) + ", position: " + str(t_x) + ", " + str(t_y))
+            # print("Found food at " + str(food_position) + ", position: " + str(t_x) + ", " + str(t_y))
             if abs(f_x - t_x) == abs(f_y - t_y):
                 # il cibo è in diagonale rispetto alla creatura
                 for i in range(1, abs(f_x - t_x) + 1):
@@ -42,7 +42,20 @@ class a2(a0):
                 return True
             else:
                 # il cibo non è in diagonale
-                pass
+                print("Debug: " + str(range(1, abs(f_x - t_x) + 1)))
+                # BUG: se si arriva alla condizione range(1, 1) -> crash per variabile non assegnata
+                for i in range(1, abs(f_x - t_x) + 1):
+                    if f_x == max(f_x, t_x):
+                        tcx = t_x + i
+                    else:
+                        tcx = t_x - i
+                    self.path_to_food.append((tcx, t_y))
+                for i in range(1, abs(f_y - t_y) + 1):
+                    if f_y == max(f_y, t_y):
+                        tcy = t_y + i
+                    else:
+                        tcy = t_y - i
+                    self.path_to_food.append((tcx, tcy))
         else:
             return False
 
