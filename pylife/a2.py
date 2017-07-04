@@ -25,25 +25,26 @@ class a2(a0):
         if food_position:
             # È stato trovato del cibo vicino
             f_x, f_y = food_position[0]
-            # print("Found food at " + str(food_position) + ", position: " + str(t_x) + ", " + str(t_y))
             if abs(f_x - t_x) == abs(f_y - t_y):
                 # il cibo è in diagonale rispetto alla creatura
-                for i in range(1, abs(f_x - t_x) + 1):
-                    if f_x - t_x > 0:
-                        s_x = t_x + i
-                    else:
-                        s_x = t_x - i
-                    if f_y - t_y > 0:
-                        s_y = t_y + i
-                    else:
-                        s_y = t_y - i
+                if f_x != t_x:
+                    for i in range(1, abs(f_x - t_x) + 1):
+                        if f_x - t_x > 0:
+                            s_x = t_x + i
+                        else:
+                            s_x = t_x - i
+                        if f_y - t_y > 0:
+                            s_y = t_y + i
+                        else:
+                            s_y = t_y - i
+                        self.path_to_food.append((s_x, s_y))
+                else:
+                    s_x = t_x
+                    s_y = t_y
                     self.path_to_food.append((s_x, s_y))
-                # print("### Path -> " + str(t_x) + "," + str(t_y) + " - " + str(self.path_to_food) + " - " + str(f_x) + "," + str(f_y) + " ###")
                 return True
             else:
                 # il cibo non è in diagonale
-                # print("Found food at " + str(food_position) + ", position: " + str(t_x) + ", " + str(t_y))
-                # print("Debug: " + str(range(1, abs(f_x - t_x) + 1)))
                 if f_x != t_x:
                     for i in range(1, abs(f_x - t_x) + 1):
                         if f_x == max(f_x, t_x):
@@ -64,9 +65,10 @@ class a2(a0):
 
 
     def move(self):
-        # t_x = self.x
-        # t_y = self.y
-        # print("[D] len(self.path_to_food): " + str(len(self.path_to_food)))
+        t_x = self.x
+        t_y = self.y
+        if (t_x >= 300) or (t_x <= 0) or (t_y >= 300) or (t_y <= 0):
+            print("DEBUG: movimento fuori dai confini (" + str(t_x) + "," + str(t_y) + ")")
 
         if len(self.path_to_food) > 0:
             # il percorso verso il cibo è già impostato
