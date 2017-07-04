@@ -16,24 +16,32 @@ class a1(a0):
     def c_type(self):
         return a1
 
-    def move(self):
-        t_x = self.x
-        t_y = self.y
+    def get_position_from_direction(self):
+        x = self.x
+        y = self.y
 
         if self.direction is None:
             self.direction = randrange(0, 4, 1) # 0:NE 1:NO 2:SO 3:SE
         if self.direction == 0:
-            t_x -= 1
-            t_y -= 1
+            x -= 1
+            y -= 1
         elif self.direction == 1:
-            t_x += 1
-            t_y -= 1
+            x += 1
+            y -= 1
         elif self.direction == 2:
-            t_x += 1
-            t_y += 1
+            x += 1
+            y += 1
         elif self.direction == 3:
-            t_x -= 1
-            t_y += 1
+            x -= 1
+            y += 1
+
+        return x, y
+
+    def move(self):
+        t_x = self.x
+        t_y = self.y
+
+        t_x, t_y = self.get_position_from_direction()
 
         pos_status = self.pos_callback(t_x, t_y)
         if pos_status[0] == -2:

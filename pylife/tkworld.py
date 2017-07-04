@@ -172,20 +172,20 @@ for c_i in range(0, CREATURES):
     c_x, c_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
     dice = randint(1, 3)
     if dice == 1:
-        c_type = a2 # a0
+        c_type = a1 # a0
     elif dice == 2:
-        c_type = a2 # a1
+        c_type = a1 # a1
     else:
-        c_type = a2
+        c_type = a1 # a2
     while not addcreature(c_x, c_y, c_type):
         c_x, c_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
         dice = randint(1, 3)
         if dice == 1:
-            c_type = a2 # a0
+            c_type = a1 # a0
         elif dice == 2:
-            c_type = a2 # a1
+            c_type = a1 # a1
         else:
-            c_type = a2
+            c_type = a1 # a2
 
 mtk.after(100, do_tick)
 mtk.mainloop()
