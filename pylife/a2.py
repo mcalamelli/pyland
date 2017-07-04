@@ -67,8 +67,6 @@ class a2(a0):
     def move(self):
         t_x = self.x
         t_y = self.y
-        if (t_x >= 300) or (t_x <= 0) or (t_y >= 300) or (t_y <= 0):
-            print("DEBUG: movimento fuori dai confini (" + str(t_x) + "," + str(t_y) + ")")
 
         if len(self.path_to_food) > 0:
             # il percorso verso il cibo è già impostato
@@ -79,7 +77,7 @@ class a2(a0):
             self.y = p_y
             t_x = self.x
             t_y = self.y
-            # self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
+            pos_status = self.pos_callback(t_x, t_y)
         elif self.build_path_to_food(self.x, self.y, 3) is True:
             # BUG: IndexError: pop from empty list qui sotto
             p_x, p_y = self.path_to_food.pop(0)
@@ -89,7 +87,7 @@ class a2(a0):
             self.y = p_y
             t_x = self.x
             t_y = self.y
-            # self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
+            pos_status = self.pos_callback(t_x, t_y)
         else:
             t_x = self.x
             t_y = self.y
@@ -107,8 +105,8 @@ class a2(a0):
             elif self.direction == 3:
                 t_x -= 1
                 t_y += 1
-
-        pos_status = self.pos_callback(t_x, t_y)
+            pos_status = self.pos_callback(t_x, t_y)
+        # pos_status = self.pos_callback(t_x, t_y)
         if pos_status[0] == -2:
             # la posizione è fuori dai confini del mondo
             mx, my = pos_status[1]
