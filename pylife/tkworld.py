@@ -150,6 +150,7 @@ c_data = json.load(args.inputfile)
 mtk = tkinter.Tk()
 tc = tkinter.Canvas(mtk, bg="black", width=XSIZE, height=YSIZE + 30)
 tc.pack(expand=1)
+tc.create_rectangle(0, 0, XSIZE + 1, YSIZE + 1, outline="LightYellow", width=1)
 c_text = tc.create_text(10, YSIZE + 15, text="Creature: ", fill="white", anchor="nw")
 
 
