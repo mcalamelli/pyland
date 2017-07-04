@@ -2,10 +2,11 @@
 # -*- coding: utf-8 -*-
 
 from random import randrange
-from a0 import a0
+# from a0 import a0
+from a1 import a1
 
 
-class a2(a0):
+class a2(a1):
     """Creatura che sente la posizione del cibo"""
 
     color = "Orange"
