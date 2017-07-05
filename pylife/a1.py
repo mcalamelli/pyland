@@ -38,9 +38,6 @@ class a1(a0):
         return x, y
 
     def move(self):
-        t_x = self.x
-        t_y = self.y
-
         t_x, t_y = self.get_position_from_direction()
 
         pos_status = self.pos_callback(t_x, t_y)
