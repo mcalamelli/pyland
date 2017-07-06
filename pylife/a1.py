@@ -64,6 +64,15 @@ class a1(a0):
                     self.direction = 1
                 elif self.direction == 3:
                     self.direction = 0
+
+            # aggiunto
+            t_x, t_y = self.get_position_from_direction()
+            self.prev_x = self.x
+            self.prev_y = self.y
+            self.x = t_x
+            self.y = t_y
+            self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
+            # fine aggiunta
         elif pos_status[0] == -1:
             # la posizione è occupata da una altra creatura
             # gestire la situazione
