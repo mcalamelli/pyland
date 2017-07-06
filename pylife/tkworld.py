@@ -54,6 +54,7 @@ def move(x, y, prev_x, prev_y, tkid):
     places[x][y] = 1
     # drawpoint(prev_x, prev_y, "black")
     # drawpoint(x, y, "DodgerBlue")
+    print("[tkid: " + str(tkid) + "] " + str(prev_x) + "," + str(prev_y) + " -> " + str(x) + "," + str(y))
     tc.move(tkid, x - prev_x, y - prev_y)
 
 
@@ -101,7 +102,8 @@ def food(x, y, size):
                         jumps = abs(x - i) + abs(y - j)
                         position.clear()
                         position.append((i, j))
-    # print(position)
+    if position:
+        print(position)
     return position
 
 
@@ -174,18 +176,18 @@ for c_i in range(0, CREATURES):
     if dice == 1:
         c_type = a1 # a0
     elif dice == 2:
-        c_type = a1 # a1
+        c_type = a2 # a1
     else:
-        c_type = a1 # a2
+        c_type = a2
     while not addcreature(c_x, c_y, c_type):
         c_x, c_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
         dice = randint(1, 3)
         if dice == 1:
             c_type = a1 # a0
         elif dice == 2:
-            c_type = a1 # a1
+            c_type = a2 # a1
         else:
-            c_type = a1 # a2
+            c_type = a2
 
 mtk.after(100, do_tick)
 mtk.mainloop()
