@@ -1,7 +1,7 @@
 # pylint: disable=locally-disabled,missing-docstring,invalid-name,line-too-long
 # -*- coding: utf-8 -*-
 
-from random import randrange
+# from random import randrange
 # from a0 import a0
 from a1 import a1
 
@@ -90,22 +90,24 @@ class a2(a1):
             t_y = self.y
             pos_status = self.pos_callback(t_x, t_y)
         else:
-            t_x = self.x
-            t_y = self.y
-            if self.direction is None:
-                self.direction = randrange(0, 4, 1) # 0:NE 1:NO 2:SO 3:SE
-            if self.direction == 0:
-                t_x -= 1
-                t_y -= 1
-            elif self.direction == 1:
-                t_x += 1
-                t_y -= 1
-            elif self.direction == 2:
-                t_x += 1
-                t_y += 1
-            elif self.direction == 3:
-                t_x -= 1
-                t_y += 1
+            #t_x = self.x
+            #t_y = self.y
+            #if self.direction is None:
+            #    self.direction = randrange(0, 4, 1) # 0:NE 1:NO 2:SO 3:SE
+            #if self.direction == 0:
+            #    t_x -= 1
+            #    t_y -= 1
+            #elif self.direction == 1:
+            #    t_x += 1
+            #    t_y -= 1
+            #elif self.direction == 2:
+            #    t_x += 1
+            #    t_y += 1
+            #elif self.direction == 3:
+            #    t_x -= 1
+            #    t_y += 1
+            t_x, t_y = self.get_position_from_direction()
+
             pos_status = self.pos_callback(t_x, t_y)
         # pos_status = self.pos_callback(t_x, t_y)
         if pos_status[0] == -2:
