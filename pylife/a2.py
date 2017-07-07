@@ -20,11 +20,10 @@ class a2(a1):
 
 
     def build_path_to_food(self, x, y, sz):
-        t_x = self.x
-        t_y = self.y
+        t_x = x
+        t_y = y
 
         food_position = self.food_callback(x, y, sz)
-        print("food_position: " + str(food_position))
         return False # TODO: return messo qui per debug
         if food_position:
             # È stato trovato del cibo vicino
@@ -64,6 +63,7 @@ class a2(a1):
                     else:
                         tcy = t_y - i
                     self.path_to_food.append((tcx, tcy))
+                return True # TODO: qui
         else:
             return False
 
