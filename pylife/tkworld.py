@@ -54,7 +54,7 @@ def move(x, y, prev_x, prev_y, tkid):
     places[x][y] = 1
     # drawpoint(prev_x, prev_y, "black")
     # drawpoint(x, y, "DodgerBlue")
-    print("[tkid: " + str(tkid) + "] " + str(prev_x) + "," + str(prev_y) + " -> " + str(x) + "," + str(y))
+    # print("[tkid: " + str(tkid) + "] " + str(prev_x) + "," + str(prev_y) + " -> " + str(x) + "," + str(y))
     tc.move(tkid, x - prev_x, y - prev_y)
 
 
@@ -102,8 +102,6 @@ def food(x, y, size):
                         jumps = abs(x - i) + abs(y - j)
                         position.clear()
                         position.append((i, j))
-    if position:
-        print(position)
     return position
 
 
