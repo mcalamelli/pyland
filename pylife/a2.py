@@ -24,7 +24,7 @@ class a2(a1):
         t_y = y
 
         food_position = self.food_callback(x, y, sz)
-        return False # TODO: return messo qui per debug
+        # return False # TODO: return messo qui per debug
         if food_position:
             # È stato trovato del cibo vicino
             f_x, f_y = food_position[0]
