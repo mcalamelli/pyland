@@ -25,8 +25,9 @@ class a2(a1):
 
         food_position = self.food_callback(x, y, sz)
         # return False # TODO: return messo qui per debug
-        if food_position:
+        if food_position is not False:
             # È stato trovato del cibo vicino
+            # self.color_callback(self.tkid, "DeepPink")
             f_x, f_y = food_position[0]
             if abs(f_x - t_x) == abs(f_y - t_y):
                 # il cibo è in diagonale rispetto alla creatura
@@ -65,6 +66,7 @@ class a2(a1):
                     self.path_to_food.append((tcx, tcy))
                 return True # TODO: qui
         else:
+            # self.color_callback(self.tkid, self.color)
             return False
 
 
@@ -73,6 +75,7 @@ class a2(a1):
         t_y = self.y
 
         if len(self.path_to_food) > 0:
+            self.color_callback(self.tkid, "DeepPink")
             # il percorso verso il cibo è già impostato
             p_x, p_y = self.path_to_food.pop(0)
             self.prev_x = self.x
@@ -81,7 +84,7 @@ class a2(a1):
             self.y = p_y
             t_x = self.x
             t_y = self.y
-            #pos_status = self.pos_callback(t_x, t_y)
+            # pos_status = self.pos_callback(t_x, t_y)
         elif self.build_path_to_food(self.x, self.y, 3) is True:
             # BUG: IndexError: pop from empty list qui sotto
             p_x, p_y = self.path_to_food.pop(0)
@@ -93,6 +96,7 @@ class a2(a1):
             t_y = self.y
             # pos_status = self.pos_callback(t_x, t_y)
         else:
+            self.color_callback(self.tkid, self.color)
             t_x, t_y = self.get_position_from_direction()
 
             # pos_status = self.pos_callback(t_x, t_y)

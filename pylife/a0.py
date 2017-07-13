@@ -8,7 +8,7 @@ class a0():
     """Base creature for pyLife"""
 
     def __init__(self, x, y,
-                 pos_cb, move_cb, die_cb, dup_cb, food_cb,
+                 pos_cb, move_cb, die_cb, dup_cb, food_cb, color_cb,
                  energy, bmrtick, age, minenergyfordup, duptime):
         self._age = 0  # l'età iniziale è 0
         self._x = x  # la X della posizione iniziale nel mondo
@@ -45,6 +45,10 @@ class a0():
             self.food_callback = self.my_scanfood_cb
         else:
             self.food_callback = food_cb
+        if color_cb is None:
+            self.color_callback = self.my_color_cb
+        else:
+            self.color_callback = color_cb
 
     @property
     def c_type(self):
@@ -245,6 +249,9 @@ class a0():
         pass
 
     def my_scanfood_cb(self):
+        pass
+    
+    def my_color_cb(self):
         pass
 
     def _performinternaltasks(self):

@@ -12,6 +12,10 @@ from a2 import a2
 c_type = None
 
 
+def ccolor(tkid, newcolor):
+    tc.itemconfig(tkid, fill=newcolor)
+
+
 def checkpos(x, y):
     if (x >= XSIZE - 1) or (y >= YSIZE - 1) or (x <= 0) or (y <= 0):
         # fuori dai confini del mondo, non valida
@@ -60,7 +64,8 @@ def move(x, y, prev_x, prev_y, tkid):
 
 def die(o, tkid):
     places[o.x][o.y] = 8
-    body = drawpoint(o.x, o.y, "DimGrey")
+    # body = drawpoint(o.x, o.y, "DimGrey")
+    body = drawpoint(o.x, o.y, "White")
     tc.itemconfig(body, tags=(str(o.x) + "x" + str(o.y)))
     creatures.remove(o)
     tc.delete(tkid)
@@ -81,7 +86,9 @@ def addcreature(x, y, z):
         #    c = a0(x=x, y=y, pos_cb=checkpos, move_cb=move, die_cb=die, dup, **creature_data["creature"][0])
         # else:
         #    c = a1(x=x, y=y, pos_cb=checkpos, move_cb=move, die_cb=die, dup, **creature_data["creature"][0])
-        c = z(x, y, pos_cb=checkpos, move_cb=move, die_cb=die, dup_cb=dup, food_cb=food, **c_data["creature"][0])
+        c = z(x, y,
+              pos_cb=checkpos, move_cb=move, die_cb=die, dup_cb=dup, food_cb=food, color_cb=ccolor,
+              **c_data["creature"][0])
         creatures.append(c)
         # c.tkid = drawpoint(x, y, "DodgerBlue")
         c.tkid = drawpoint(x, y, c.color)
@@ -102,7 +109,10 @@ def food(x, y, size):
                         jumps = abs(x - i) + abs(y - j)
                         position.clear()
                         position.append((i, j))
-    return position
+    if len(position) > 0:
+        return position
+    else:
+        return False
 
 
 parser = argparse.ArgumentParser()
@@ -172,7 +182,7 @@ for c_i in range(0, CREATURES):
     c_x, c_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
     dice = randint(1, 3)
     if dice == 1:
-        c_type = a1 # a0
+        c_type = a2 # a0
     elif dice == 2:
         c_type = a2 # a1
     else:
@@ -181,7 +191,7 @@ for c_i in range(0, CREATURES):
         c_x, c_y = randint(0, XSIZE - 1), randint(0, YSIZE - 1)
         dice = randint(1, 3)
         if dice == 1:
-            c_type = a1 # a0
+            c_type = a2 # a0
         elif dice == 2:
             c_type = a2 # a1
         else:
