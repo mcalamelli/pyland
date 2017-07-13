@@ -174,7 +174,7 @@ for c_i in range(0, CREATURES):
     if dice == 1:
         c_type = a1 # a0
     elif dice == 2:
-        c_type = a1
+        c_type = a2 # a1
     else:
         c_type = a2
     while not addcreature(c_x, c_y, c_type):
@@ -183,7 +183,7 @@ for c_i in range(0, CREATURES):
         if dice == 1:
             c_type = a1 # a0
         elif dice == 2:
-            c_type = a1
+            c_type = a2 # a1
         else:
             c_type = a2
 
