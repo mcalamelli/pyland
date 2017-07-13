@@ -81,7 +81,7 @@ class a2(a1):
             self.y = p_y
             t_x = self.x
             t_y = self.y
-            pos_status = self.pos_callback(t_x, t_y)
+            #pos_status = self.pos_callback(t_x, t_y)
         elif self.build_path_to_food(self.x, self.y, 3) is True:
             # BUG: IndexError: pop from empty list qui sotto
             p_x, p_y = self.path_to_food.pop(0)
@@ -91,12 +91,12 @@ class a2(a1):
             self.y = p_y
             t_x = self.x
             t_y = self.y
-            pos_status = self.pos_callback(t_x, t_y)
+            # pos_status = self.pos_callback(t_x, t_y)
         else:
             t_x, t_y = self.get_position_from_direction()
 
-            pos_status = self.pos_callback(t_x, t_y)
-        # pos_status = self.pos_callback(t_x, t_y)
+            # pos_status = self.pos_callback(t_x, t_y)
+        pos_status = self.pos_callback(t_x, t_y)
         if pos_status[0] == -2:
             # la posizione è fuori dai confini del mondo
             mx, my = pos_status[1]
@@ -126,7 +126,7 @@ class a2(a1):
             self.prev_y = self.y
             self.x = t_x
             self.y = t_y
-            self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
+            # self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
         elif pos_status[0] == -1:
             # la posizione è occupata da una altra creatura
             # gestire la situazione
@@ -139,7 +139,7 @@ class a2(a1):
             self.prev_y = self.y
             self.x = t_x
             self.y = t_y
-            self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
+            # self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
         elif pos_status[0] == 1:
             # la posizione è occupata da una creatura morta
             # la considero come valida, mangio il cibo e ci vado
@@ -148,11 +148,13 @@ class a2(a1):
             self.prev_y = self.y
             self.x = t_x
             self.y = t_y
-            self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
+            # self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
         else:
             # la posizione è vuota, ci vado
             self.prev_x = self.x
             self.prev_y = self.y
             self.x = t_x
             self.y = t_y
-            self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
+            # self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
+
+        self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
