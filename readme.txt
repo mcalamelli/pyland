@@ -33,3 +33,7 @@ Una prova di vita artificiale
 
 * myclass.py, testmyclass.py
 Codice di esempio per l'uso delle classi
+
+* csvproc.py
+Lo script esegue delle elaborazioni su tutti i file CSV presenti nella directory corrente (i file CSV sono quelli che si scaricano)
+dal portale Paymonitoring, relativi alle vendite dei prodotti) e poi li converte in XLSX.
