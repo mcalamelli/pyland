@@ -39,7 +39,7 @@ if len(csvlist) > 0:
                 processed.append(header)
 
                 for row in myreader:
-                    if (myreader.line_num == lc) or (myreader.line_num == lc - 1):
+                    if myreader.line_num >= lc - 1:
                         row.insert(0, '')
                         processed.append(row)
                     elif myreader.line_num % 2 != 0:
