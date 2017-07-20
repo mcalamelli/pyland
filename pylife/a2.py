@@ -19,15 +19,15 @@ class a2(a1):
         return a2
 
 
-    def build_path_to_food(self, x, y, sz):
-        t_x = x
-        t_y = y
+    # def build_path_to_food(self, x, y, sz):
+    def build_path_to_food(self, sz):
+        t_x = self.x
+        t_y = self.y
 
-        food_position = self.food_callback(x, y, sz)
+        food_position = self.food_callback(t_x, t_y, sz)
         # return False # TODO: return messo qui per debug
         if food_position is not False:
             # È stato trovato del cibo vicino
-            # self.color_callback(self.tkid, "DeepPink")
             f_x, f_y = food_position[0]
             if abs(f_x - t_x) == abs(f_y - t_y):
                 # il cibo è in diagonale rispetto alla creatura
@@ -47,26 +47,25 @@ class a2(a1):
                     s_y = t_y
                     self.path_to_food.append((s_x, s_y))
                 return True
-            else:
-                # il cibo non è in diagonale
-                if f_x != t_x:
-                    for i in range(1, abs(f_x - t_x) + 1):
-                        if f_x == max(f_x, t_x):
-                            tcx = t_x + i
-                        else:
-                            tcx = t_x - i
-                        self.path_to_food.append((tcx, t_y))
-                else:
-                    tcx = t_x
-                for i in range(1, abs(f_y - t_y) + 1):
-                    if f_y == max(f_y, t_y):
-                        tcy = t_y + i
-                    else:
-                        tcy = t_y - i
-                    self.path_to_food.append((tcx, tcy))
-                return True # TODO: qui
+            # else:
+            #     # il cibo non è in diagonale
+            #     if f_x != t_x:
+            #         for i in range(1, abs(f_x - t_x) + 1):
+            #             if f_x == max(f_x, t_x):
+            #                 tcx = t_x + i
+            #             else:
+            #                 tcx = t_x - i
+            #             self.path_to_food.append((tcx, t_y))
+            #     else:
+            #         tcx = t_x
+            #     for i in range(1, abs(f_y - t_y) + 1):
+            #         if f_y == max(f_y, t_y):
+            #             tcy = t_y + i
+            #         else:
+            #             tcy = t_y - i
+            #         self.path_to_food.append((tcx, tcy))
+            #     return True
         else:
-            # self.color_callback(self.tkid, self.color)
             return False
 
 
@@ -84,22 +83,13 @@ class a2(a1):
             self.y = p_y
             t_x = self.x
             t_y = self.y
-            # pos_status = self.pos_callback(t_x, t_y)
-        elif self.build_path_to_food(self.x, self.y, 3) is True:
-            # BUG: IndexError: pop from empty list qui sotto
-            p_x, p_y = self.path_to_food.pop(0)
-            self.prev_x = self.x
-            self.prev_y = self.y
-            self.x = p_x
-            self.y = p_y
-            t_x = self.x
-            t_y = self.y
-            # pos_status = self.pos_callback(t_x, t_y)
         else:
             self.color_callback(self.tkid, self.color)
-            t_x, t_y = self.get_position_from_direction()
+            self.build_path_to_food(3)
+            # t_x, t_y = self.get_position_from_direction()
 
-            # pos_status = self.pos_callback(t_x, t_y)
+        t_x, t_y = self.get_position_from_direction()
+
         pos_status = self.pos_callback(t_x, t_y)
         if pos_status[0] == -2:
             # la posizione è fuori dai confini del mondo
@@ -130,7 +120,6 @@ class a2(a1):
             self.prev_y = self.y
             self.x = t_x
             self.y = t_y
-            # self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
         elif pos_status[0] == -1:
             # la posizione è occupata da una altra creatura
             # gestire la situazione
@@ -143,7 +132,6 @@ class a2(a1):
             self.prev_y = self.y
             self.x = t_x
             self.y = t_y
-            # self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
         elif pos_status[0] == 1:
             # la posizione è occupata da una creatura morta
             # la considero come valida, mangio il cibo e ci vado
@@ -152,13 +140,11 @@ class a2(a1):
             self.prev_y = self.y
             self.x = t_x
             self.y = t_y
-            # self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
         else:
             # la posizione è vuota, ci vado
             self.prev_x = self.x
             self.prev_y = self.y
             self.x = t_x
             self.y = t_y
-            # self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
 
         self.move_callback(self.x, self.y, self.prev_x, self.prev_y, self.tkid)
