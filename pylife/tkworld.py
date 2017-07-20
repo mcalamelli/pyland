@@ -110,6 +110,8 @@ def food(x, y, size):
                         position.clear()
                         position.append((i, j))
     if len(position) > 0:
+        tc.create_line(x, y, (position), fill="White") # TODO: QUI
+        print(x, y, (position), places[i][j])
         return position
     else:
         return False
