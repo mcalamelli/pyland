@@ -10,7 +10,7 @@ from a1 import a1
 from a2 import a2
 
 c_type = None
-
+world_is_locked = False
 
 def ccolor(tkid, newcolor):
     tc.itemconfig(tkid, fill=newcolor)
