@@ -10,7 +10,6 @@ from a1 import a1
 from a2 import a2
 
 c_type = None
-world_is_locked = False
 
 def ccolor(tkid, newcolor):
     tc.itemconfig(tkid, fill=newcolor)
@@ -111,7 +110,7 @@ def food(x, y, size):
                         position.append((i, j))
     if len(position) > 0:
         tc.create_line(x, y, (position), fill="White") # TODO: QUI
-        print(x, y, (position), places[i][j])
+        print(x, y, position, places[position[0][0]][position[0][1]])
         return position
     else:
         return False
