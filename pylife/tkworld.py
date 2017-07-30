@@ -46,7 +46,6 @@ def addfood(x, y):
 
 
 def drawpoint(x, y, color):
-    # drw.point((x, y), fill=color)
     return tc.create_oval(x - 2, y - 2, x + 2, y + 2, fill=color)
 
 
@@ -55,15 +54,11 @@ def move(x, y, prev_x, prev_y, tkid):
     if (places[x][y] == 9) or (places[x][y] == 8):
         tc.delete(tc.find_withtag(str(x) + "x" + str(y)))
     places[x][y] = 1
-    # drawpoint(prev_x, prev_y, "black")
-    # drawpoint(x, y, "DodgerBlue")
-    # print("[tkid: " + str(tkid) + "] " + str(prev_x) + "," + str(prev_y) + " -> " + str(x) + "," + str(y))
     tc.move(tkid, x - prev_x, y - prev_y)
 
 
 def die(o, tkid):
     places[o.x][o.y] = 8
-    # body = drawpoint(o.x, o.y, "DimGrey")
     body = drawpoint(o.x, o.y, "White")
     tc.itemconfig(body, tags=(str(o.x) + "x" + str(o.y)))
     creatures.remove(o)
@@ -89,7 +84,6 @@ def addcreature(x, y, z):
               pos_cb=checkpos, move_cb=move, die_cb=die, dup_cb=dup, food_cb=food, color_cb=ccolor,
               **c_data["creature"][0])
         creatures.append(c)
-        # c.tkid = drawpoint(x, y, "DodgerBlue")
         c.tkid = drawpoint(x, y, c.color)
         tc.itemconfigure(c_text, text="Creature: " + str(len(creatures)))
         return True
