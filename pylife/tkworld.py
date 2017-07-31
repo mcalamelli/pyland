@@ -50,6 +50,7 @@ def drawpoint(x, y, color):
 
 
 def move(x, y, prev_x, prev_y, tkid):
+    print("M", x, y, prev_x, prev_y)
     places[prev_x][prev_y] = 0
     if (places[x][y] == 9) or (places[x][y] == 8):
         tc.delete(tc.find_withtag(str(x) + "x" + str(y)))
@@ -103,8 +104,8 @@ def food(x, y, size):
                         position.clear()
                         position.append((i, j))
     if len(position) > 0:
-        tc.create_line(x, y, (position), fill="White") # TODO: QUI
-        print(x, y, position, places[position[0][0]][position[0][1]])
+        tc.create_line(x, y, (position), fill="Yellow") # TODO: QUI
+        print("F", x, y, position, places[position[0][0]][position[0][1]])
         return position
     else:
         return False
