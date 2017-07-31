@@ -10,6 +10,7 @@ class a2(a1):
     """Creatura che sente la posizione del cibo"""
 
     color = "Orange"
+    dup_color = "Coral"
     direction = None
     path_to_food = []
 

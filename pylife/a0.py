@@ -23,6 +23,7 @@ class a0():
         self.DUPTIME = duptime
         self._tkid = None
         self._color = "DodgerBlue"
+        self._dup_color = "DeepSkyBlue"
         self._c_type = a0
 
         if pos_cb is None:

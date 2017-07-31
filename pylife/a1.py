@@ -9,6 +9,7 @@ class a1(a0):
     """Creatura che si muove in diagonale"""
 
     color = "LawnGreen"
+    dup_color = "YellowGreen"
     direction = None
 
 
