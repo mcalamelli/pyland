@@ -10,7 +10,7 @@ class a2(a1):
     """Creatura che sente la posizione del cibo"""
 
     color = "Orange"
-    dup_color = "Coral"
+    dup_color = "Lime" # dup_color = "Coral"
     direction = None
     path_to_food = []
 
@@ -75,7 +75,7 @@ class a2(a1):
         t_y = self.y
 
         if len(self.path_to_food) > 0:
-            self.color_callback(self.tkid, "DeepPink")
+            # self.color_callback(self.tkid, "DeepPink") # TODO: da rimettere
             # il percorso verso il cibo è già impostato
             p_x, p_y = self.path_to_food.pop(0)
             self.prev_x = self.x
@@ -85,7 +85,7 @@ class a2(a1):
             t_x = self.x
             t_y = self.y
         else:
-            self.color_callback(self.tkid, self.color)
+            # self.color_callback(self.tkid, self.color) # TODO: da rimettere
             self.build_path_to_food(3)
             # t_x, t_y = self.get_position_from_direction()
 
