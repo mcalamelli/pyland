@@ -250,7 +250,7 @@ class a0():
 
     def my_scanfood_cb(self):
         pass
-    
+
     def my_color_cb(self):
         pass
 
