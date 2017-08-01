@@ -82,12 +82,11 @@ class a2(a1):
             self.prev_y = self.y
             self.x = p_x
             self.y = p_y
-            t_x = self.x
-            t_y = self.y
+            # t_x = self.x
+            # t_y = self.y
         else:
             # self.color_callback(self.tkid, self.color) # TODO: da rimettere
             self.build_path_to_food(3)
-            # t_x, t_y = self.get_position_from_direction()
 
         t_x, t_y = self.get_position_from_direction()
 

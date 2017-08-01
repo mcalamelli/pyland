@@ -50,12 +50,13 @@ def drawpoint(x, y, color):
 
 
 def move(x, y, prev_x, prev_y, tkid):
-    # print("M", x, y, prev_x, prev_y)
     places[prev_x][prev_y] = 0
     if (places[x][y] == 9) or (places[x][y] == 8):
         tc.delete(tc.find_withtag(str(x) + "x" + str(y)))
     places[x][y] = 1
+    tc.create_line(prev_x, prev_y, x, y, fill="Yellow") # TODO: QUI
     tc.move(tkid, x - prev_x, y - prev_y)
+    # tc.move(tkid, x, y)
 
 
 def die(o, tkid):
@@ -78,10 +79,6 @@ def dup(x, y, z):
 def addcreature(x, y, z, d=False):
     if checkpos(x, y):
         places[x][y] = 1
-        # if not x % 2 == 0:
-        #    c = a0(x=x, y=y, pos_cb=checkpos, move_cb=move, die_cb=die, dup, **creature_data["creature"][0])
-        # else:
-        #    c = a1(x=x, y=y, pos_cb=checkpos, move_cb=move, die_cb=die, dup, **creature_data["creature"][0])
         c = z(x, y,
               pos_cb=checkpos, move_cb=move, die_cb=die, dup_cb=dup, food_cb=food, color_cb=ccolor,
               **c_data["creature"][0])
@@ -108,8 +105,7 @@ def food(x, y, size):
                         position.clear()
                         position.append((i, j))
     if len(position) > 0:
-        tc.create_line(x, y, (position), fill="Yellow") # TODO: QUI
-        # print("F", x, y, position, places[position[0][0]][position[0][1]])
+        # tc.create_line(x, y, (position), fill="Yellow") # TODO: QUI
         return position
     else:
         return False
