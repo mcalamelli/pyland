@@ -5,4 +5,4 @@ pylife/__pycache__/*
 pylife/[0-9]*/
 pylife/debug*.txt
 debug*.txt
-pylife/*.pickle
+pylife/*.dump
