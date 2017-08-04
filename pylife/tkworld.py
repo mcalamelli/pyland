@@ -72,7 +72,7 @@ def dup(x, y, z):
     # t_x = x
     # t_y = y
     addcreature(randint(x - 3, x + 3), randint(y - 3, y + 3), z, True)
-    # while not addcreature(t_x, t_y, z):  # da sistemare
+    # while not addcreature(t_x, t_y, z):  # TODO: da sistemare
     #    t_x, t_y = randint(t_x - 3, t_x + 3), randint(t_y - 3, t_y + 3)
 
 
