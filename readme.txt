@@ -37,3 +37,6 @@ Codice di esempio per l'uso delle classi
 * csvproc.py
 Lo script esegue delle elaborazioni su tutti i file CSV presenti nella directory corrente (i file CSV sono quelli che si scaricano)
 dal portale Paymonitoring, relativi alle vendite dei prodotti) e poi li converte in XLSX.
+
+* training_set_gen.py
+Lo script genera un file per contenente il training set per un Google Agent, basandosi su un dizionario di parole italiane.
