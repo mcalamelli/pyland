@@ -6,3 +6,4 @@ pylife/[0-9]*/
 pylife/debug*.txt
 debug*.txt
 pylife/*.dump
+training_set.txt
